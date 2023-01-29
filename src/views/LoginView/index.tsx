@@ -13,7 +13,7 @@ const { Item } = Form;
 const LoginView: FC = () => (
   <div className={styles.loginView__Wrapper}>
     <Card className={styles.loginView__Card}>
-      <Image src={LogoImg.src} />
+      <Image src={LogoImg.src} alt="Logo" />
       <Title level={2} className={styles.loginView__Title}>
         Добро пожаловать!
       </Title>
