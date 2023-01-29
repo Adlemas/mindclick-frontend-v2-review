@@ -1,18 +1,25 @@
 
-
-
 .ant-btn {
-    span {
-        font-weight: 600 !important;
-    }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  svg {
+    font-size: 16px !important;
+  }
+
+  span {
+    font-weight: 600 !important;
+  }
 }
 
 .ant-form-item-label {
-    label {
-        font-weight: 600 !important;
-    }
+  label {
+    font-weight: 600 !important;
+  }
 }
 
 .ant-form-item {
-    margin-bottom: 12px !important;
+  margin-bottom: 12px !important;
 }
