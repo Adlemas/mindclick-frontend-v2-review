@@ -31,6 +31,11 @@ const LoginView: FC = () => (
             Войти
           </Button>
         </Item>
+        <Item>
+          <Button type="primary" block secondary>
+            О портале
+          </Button>
+        </Item>
       </Form>
       <Text className={styles.loginView__Brand}>
         <Image src={LogoImg.src} alt="Logo" width={30} />
