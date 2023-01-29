@@ -38,9 +38,27 @@ const LoginView: FC = () => (
           </Button>
         </Item>
         <Item>
-          <Button type="primary" block secondary>
+          <Button
+            type="outline"
+            href="https://sites.google.com/view/mindclickoncom/%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F"
+            target="_blank"
+            block
+            secondary
+          >
             О портале
           </Button>
+        </Item>
+        <Item>
+          <Text className={styles.loginView__Register}>
+            Еще не зарегистрированы?
+            <Button
+              type="link"
+              target="_blank"
+              href="https://forms.gle/ASBuS7k6VxmEG3p48"
+            >
+              Подать заявку
+            </Button>
+          </Text>
         </Item>
       </Form>
       <Text className={styles.loginView__Brand}>
