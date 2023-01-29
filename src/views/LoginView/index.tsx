@@ -14,7 +14,7 @@ const LoginView: FC = () => (
       <Title level={2} className={styles.loginView__Title}>
         Добро пожаловать!
       </Title>
-      <Title type="secondary" level={4} className={styles.loginView__Subtitle}>
+      <Title type="secondary" level={5} className={styles.loginView__Subtitle}>
         Пожалуйста, войдите в свой аккаунт
       </Title>
       <Form layout="vertical">
