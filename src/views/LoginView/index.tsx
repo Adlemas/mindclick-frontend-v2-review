@@ -21,11 +21,35 @@ const LoginView: FC = () => (
         Пожалуйста, войдите в свой аккаунт
       </Title>
       <Form layout="vertical">
-        <Item label="Email" name="email">
+        <Item
+          label="Email"
+          name="email"
+          rules={[
+            {
+              type: "email",
+              message: "Email недействителен",
+            },
+            {
+              required: true,
+              message: "Пожалуйста, введите email",
+            },
+          ]}
+          required
+        >
           <StyledInput placeholder="Введите email" />
         </Item>
-        <Item label="Пароль" name="password">
-          <StyledInput placeholder="Введите пароль" />
+        <Item
+          label="Пароль"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: "Пожалуйста, введите пароль",
+            },
+          ]}
+          required
+        >
+          <StyledInput type="password" placeholder="Введите пароль" />
         </Item>
         <Item>
           <Button
