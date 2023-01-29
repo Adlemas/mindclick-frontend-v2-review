@@ -11,6 +11,7 @@
     "prettier/prettier": "error",
     "react/function-component-definition": "off",
     "react/jsx-props-no-spreading": "off",
+    "import/extensions": "off",
     "react/jsx-filename-extension": [
       2,
       {
