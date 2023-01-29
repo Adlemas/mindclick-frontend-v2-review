@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Card, Form, Image, Typography } from "antd";
+import { RiLoginCircleLine } from "react-icons/ri";
 import StyledInput from "@/components/UI/StyledInput";
 import Button from "@/components/UI/Button";
 
@@ -27,7 +28,12 @@ const LoginView: FC = () => (
           <StyledInput placeholder="Введите пароль" />
         </Item>
         <Item>
-          <Button type="primary" htmlType="submit" block>
+          <Button
+            type="primary"
+            htmlType="submit"
+            icon={<RiLoginCircleLine />}
+            block
+          >
             Войти
           </Button>
         </Item>
