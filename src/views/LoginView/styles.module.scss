@@ -25,14 +25,13 @@
   }
 
   &__Brand {
-    color: #fff;
     font-size: 14px;
-    font-weight: 400;
 
     display: flex;
     align-items: center;
 
     span {
+      font-weight: 400 !important;
       opacity: .8;
       margin-left: 5px;
     }

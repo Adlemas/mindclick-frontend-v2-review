@@ -7,7 +7,12 @@ const App = ({ Component, pageProps }: AppProps) => (
   <ConfigProvider
     locale={ruRU}
     theme={{
-      algorithm: theme.darkAlgorithm,
+      algorithm: theme.defaultAlgorithm,
+      token: {
+        // yellow primary color
+        colorPrimary: "#FFC107",
+        colorTextLightSolid: "#141414",
+      },
     }}
   >
     <Component {...pageProps} />
