@@ -12,6 +12,8 @@ const App = ({ Component, pageProps }: AppProps) => (
         // yellow primary color
         colorPrimary: "#FFC107",
         colorTextLightSolid: "#141414",
+        borderRadius: 4,
+        controlHeight: 36,
       },
     }}
   >
