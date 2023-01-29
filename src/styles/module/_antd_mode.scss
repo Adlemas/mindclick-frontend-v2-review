@@ -1,9 +1,15 @@
 
 .ant-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
+  &:not(.ant-btn-link):not(.ant-btn-text) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  &:is(.ant-btn-link) {
+    display: inline;
+  }
 
   svg {
     font-size: 16px !important;
