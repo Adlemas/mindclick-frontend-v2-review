@@ -1,0 +1,35 @@
+
+
+.loginView {
+  &__Wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("/images/login-background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &__Title {
+    margin-bottom: 10px !important;
+    margin-top: 0 !important;
+    font-weight: 700 !important;
+  }
+
+  &__Subtitle {
+    margin-top: 0 !important;
+    margin-bottom: 20px !important;
+    font-weight: 400 !important;
+  }
+
+  &__Card {
+    width: 350px;
+    align-items: center;
+
+    :global(.ant-typography) {
+      text-align: center !important;
+    }
+  }
+}
