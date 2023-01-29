@@ -1,7 +1,9 @@
 import { FC } from "react";
-import { Card, Form, Typography } from "antd";
+import { Card, Form, Image, Typography } from "antd";
 import StyledInput from "@/components/UI/StyledInput";
 import Button from "@/components/UI/Button";
+
+import LogoImg from "@/assets/mindclickon-icon.png";
 
 import styles from "./styles.module.scss";
 
@@ -11,6 +13,7 @@ const { Item } = Form;
 const LoginView: FC = () => (
   <div className={styles.loginView__Wrapper}>
     <Card className={styles.loginView__Card}>
+      <Image src={LogoImg.src} />
       <Title level={2} className={styles.loginView__Title}>
         Добро пожаловать!
       </Title>
