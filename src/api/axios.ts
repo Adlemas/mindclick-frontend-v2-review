@@ -62,9 +62,19 @@ const refreshTokens = async () => {
 
 axios.interceptors.request.use((config) => {
   const accessToken = getItemFromLocal("accessToken");
+  const refreshToken = getItemFromLocal("refreshToken");
+  const pathname = config.url;
 
-  if (accessToken) {
+  if (accessToken && pathname !== "auth/refresh" && pathname !== "auth/login") {
     config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+
+  if (
+    refreshToken &&
+    pathname !== "auth/refresh" &&
+    pathname !== "auth/login"
+  ) {
+    config.headers.Authorization = `Bearer ${refreshToken}`;
   }
 
   return config;
