@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Form, Typography } from "antd";
+import { Checkbox, Form, Typography } from "antd";
 import { RiLoginCircleLine } from "react-icons/ri";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { loginAction } from "@/redux/slices/auth";
@@ -60,6 +60,9 @@ const LoginForm: FC = () => {
         required
       >
         <StyledInput type="password" placeholder="Введите пароль" />
+      </Item>
+      <Item name="rememberMe" valuePropName="checked">
+        <Checkbox>Запомнить меня</Checkbox>
       </Item>
       <Item>
         <Button
