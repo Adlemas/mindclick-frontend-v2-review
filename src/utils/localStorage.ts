@@ -26,6 +26,17 @@ export const getItemFromLocal = <T>(key: string): T | null => {
   return null;
 };
 
+export const removeItemFromLocal = (key: string) => {
+  if (!globalThis.window) {
+    return;
+  }
+  try {
+    window.localStorage.removeItem(key);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const clearAllLocal = () => {
   if (!globalThis.window) {
     return;
