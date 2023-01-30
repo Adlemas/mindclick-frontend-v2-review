@@ -5,3 +5,8 @@ export interface AuthState {
   loading: boolean;
   refreshing: boolean;
 }
+
+export interface ProfileState {
+  profile: any;
+  loading: boolean;
+}
