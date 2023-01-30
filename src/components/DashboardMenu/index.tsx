@@ -3,14 +3,16 @@ import { Menu } from "antd";
 import Link from "next/link";
 import { RiLineChartLine } from "react-icons/ri";
 
+const { Item } = Menu;
+
 const DashboardMenu: FC = () => (
   <div>
     <Menu theme="dark">
-      <Menu.Item>
+      <Item>
         <Link href="/">
           <RiLineChartLine size={16} />
         </Link>
-      </Menu.Item>
+      </Item>
     </Menu>
   </div>
 );
