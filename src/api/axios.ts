@@ -18,7 +18,7 @@ const refreshTokens = async () => {
     if (refreshingToken) {
       return new Promise<RefreshTokenResponse>((resolve, reject) => {
         let timeSpent = 0;
-        const timeout = 5000;
+        const timeout = 10000;
 
         const interval = setInterval(() => {
           timeSpent += 100;
@@ -69,11 +69,7 @@ axios.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
 
-  if (
-    refreshToken &&
-    pathname !== "auth/refresh" &&
-    pathname !== "auth/login"
-  ) {
+  if (refreshToken && pathname === "auth/refresh") {
     config.headers.Authorization = `Bearer ${refreshToken}`;
   }
 
@@ -95,21 +91,18 @@ axios.interceptors.response.use(
       originalConfig._retry = true;
 
       try {
-        if (error.config._retry !== true) {
-          error.config._retry = true;
-          const tokens = await refreshTokens();
-          if (tokens) {
-            setItemInLocal("accessToken", tokens.accessToken);
-            setItemInLocal("refreshToken", tokens.refreshToken);
+        const tokens = await refreshTokens();
+        if (tokens) {
+          setItemInLocal("accessToken", tokens.accessToken);
+          setItemInLocal("refreshToken", tokens.refreshToken);
 
-            axios.defaults.headers.common.Authorization = `Bearer ${tokens.accessToken}`;
+          axios.defaults.headers.common.Authorization = `Bearer ${tokens.accessToken}`;
 
-            return axios(originalConfig);
-          }
+          return axios(originalConfig);
         }
       } catch (e: any) {
         // Call window "logout" event
-        window.dispatchEvent(new Event("logout"));
+        window.dispatchEvent(new Event("forceLogout"));
 
         if (e.response && e.response.data) {
           return Promise.reject(e.response.data);
