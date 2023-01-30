@@ -17,6 +17,12 @@ const App = ({ Component, pageProps }: AppProps) => (
         borderRadius: 4,
         controlHeight: 36,
       },
+      components: {
+        Checkbox: {
+          colorPrimary: "#141414",
+          colorPrimaryHover: "#141414",
+        },
+      },
     }}
   >
     <Provider store={store}>
