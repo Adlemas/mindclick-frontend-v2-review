@@ -22,6 +22,10 @@ const App = ({ Component, pageProps }: AppProps) => (
           colorPrimary: "#141414",
           colorPrimaryHover: "#141414",
         },
+        Radio: {
+          colorPrimary: "#141414",
+          colorPrimaryHover: "#141414",
+        },
       },
     }}
   >
