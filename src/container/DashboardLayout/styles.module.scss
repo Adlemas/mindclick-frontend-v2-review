@@ -6,4 +6,10 @@
   // reset flex
   flex: 0 0 auto !important;
   width: auto !important;
+
+  :global(.ant-menu-title-content) {
+    svg {
+      margin-bottom: -.2rem;
+    }
+  }
 }

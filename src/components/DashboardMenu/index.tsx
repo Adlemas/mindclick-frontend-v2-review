@@ -8,7 +8,7 @@ const DashboardMenu: FC = () => (
     <Menu theme="dark">
       <Menu.Item>
         <Link href="/">
-          <RiLineChartLine />
+          <RiLineChartLine size={16} />
         </Link>
       </Menu.Item>
     </Menu>
