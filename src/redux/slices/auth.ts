@@ -4,11 +4,12 @@ import { AuthState } from "@/types/redux";
 import { LoginPayload, LoginResponse } from "@/types/api/auth";
 import login from "@/api/auth/login";
 import handleAxiosError from "@/utils/handleAxiosError";
+import { getItemFromLocal, setItemInLocal } from "@/utils/localStorage";
 
 const initialState: AuthState = {
   accessToken: null,
   refreshToken: null,
-  isAuthenticated: false,
+  isAuthenticated: getItemFromLocal("isAuthenticated") || false,
   loading: false,
 };
 
@@ -39,6 +40,9 @@ export const authSlice = createSlice({
       state.refreshToken = action.payload.refreshToken;
       state.isAuthenticated = true;
       state.loading = false;
+      setItemInLocal("accessToken", action.payload.accessToken);
+      setItemInLocal("refreshToken", action.payload.refreshToken);
+      setItemInLocal("isAuthenticated", true);
     });
     builder.addCase(loginAction.rejected, (state) => {
       state.loading = false;
