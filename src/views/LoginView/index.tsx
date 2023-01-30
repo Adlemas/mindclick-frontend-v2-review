@@ -1,123 +1,29 @@
 import { FC } from "react";
-import { Card, Form, Image, Typography } from "antd";
-import { RiLoginCircleLine } from "react-icons/ri";
-import StyledInput from "@/components/UI/StyledInput";
-import Button from "@/components/UI/Button";
+import { Card, Image, Typography } from "antd";
 
 import LogoImg from "@/assets/mindclickon-icon.png";
 
 import styles from "./styles.module.scss";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { loginAction } from "@/redux/slices/auth";
-import handleFormError from "@/utils/handleFormError";
+import LoginForm from "@/components/Auth/LoginForm";
 
 const { Title, Text } = Typography;
-const { Item } = Form;
 
-interface FormValues {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-}
-
-const LoginView: FC = () => {
-  const loading = useAppSelector((state) => state.auth.loading);
-  const dispatch = useAppDispatch();
-
-  const handleSubmit = (values: FormValues) => {
-    dispatch(loginAction(values));
-  };
-
-  return (
-    <div className={styles.loginView__Wrapper}>
-      <Card className={styles.loginView__Card}>
-        <Title level={2} className={styles.loginView__Title}>
-          Добро пожаловать!
-        </Title>
-        <Title
-          type="secondary"
-          level={5}
-          className={styles.loginView__Subtitle}
-        >
-          Пожалуйста, войдите в свой аккаунт
-        </Title>
-        <Form
-          onFinish={handleSubmit}
-          onFinishFailed={handleFormError}
-          layout="vertical"
-        >
-          <Item
-            label="Email"
-            name="email"
-            rules={[
-              {
-                type: "email",
-                message: "Email недействителен",
-              },
-              {
-                required: true,
-                message: "Пожалуйста, введите email",
-              },
-            ]}
-            required
-          >
-            <StyledInput placeholder="Введите email" />
-          </Item>
-          <Item
-            label="Пароль"
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "Пожалуйста, введите пароль",
-              },
-            ]}
-            required
-          >
-            <StyledInput type="password" placeholder="Введите пароль" />
-          </Item>
-          <Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              icon={<RiLoginCircleLine />}
-              loading={loading}
-              block
-            >
-              Войти
-            </Button>
-          </Item>
-          <Item>
-            <Button
-              type="outline"
-              href="https://sites.google.com/view/mindclickoncom/%D0%B3%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F"
-              target="_blank"
-              block
-              secondary
-            >
-              О портале
-            </Button>
-          </Item>
-          <Item>
-            <Text className={styles.loginView__Register}>
-              Еще не зарегистрированы?
-              <Button
-                type="link"
-                target="_blank"
-                href="https://forms.gle/ASBuS7k6VxmEG3p48"
-              >
-                Подать заявку
-              </Button>
-            </Text>
-          </Item>
-        </Form>
-        <Text className={styles.loginView__Brand}>
-          <Image src={LogoImg.src} alt="Logo" width={30} />
-          <span>MindClick</span>
-        </Text>
-      </Card>
-    </div>
-  );
-};
+const LoginView: FC = () => (
+  <div className={styles.loginView__Wrapper}>
+    <Card className={styles.loginView__Card}>
+      <Title level={2} className={styles.loginView__Title}>
+        Добро пожаловать!
+      </Title>
+      <Title type="secondary" level={5} className={styles.loginView__Subtitle}>
+        Пожалуйста, войдите в свой аккаунт
+      </Title>
+      <LoginForm />
+      <Text className={styles.loginView__Brand}>
+        <Image src={LogoImg.src} alt="Logo" width={30} />
+        <span>MindClick</span>
+      </Text>
+    </Card>
+  </div>
+);
 
 export default LoginView;
