@@ -18,6 +18,8 @@ const App = ({ Component, pageProps }: AppProps) => (
         colorTextLightSolid: "#141414",
         borderRadius: 4,
         controlHeight: 36,
+        // colorFill: "red",
+        // colorFillSecondary: "blue",
       },
       components: {
         Checkbox: {
