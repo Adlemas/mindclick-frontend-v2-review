@@ -86,6 +86,7 @@ export const authSlice = createSlice({
     });
     builder.addCase(refreshAction.rejected, (state) => {
       state.refreshing = false;
+      authSlice.caseReducers.logout();
     });
   },
 });
