@@ -5,6 +5,7 @@ import LogoImg from "@/assets/mindclickon-icon.png";
 import DashboardMenu from "@/components/DashboardMenu";
 
 import styles from "./styles.module.scss";
+import DashboardNav from "@/components/DashboardNav";
 
 interface IDashboardLayoutProps {
   children: ReactNode;
@@ -19,7 +20,10 @@ const DashboardLayout: FC<IDashboardLayoutProps> = ({ children }) => (
       <Image src={LogoImg.src} alt="Logo" width={50} preview={false} />
       <DashboardMenu />
     </Sider>
-    <Content>{children}</Content>
+    <Content>
+      <DashboardNav />
+      {children}
+    </Content>
   </Layout>
 );
 
