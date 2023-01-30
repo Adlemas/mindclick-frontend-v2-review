@@ -15,7 +15,7 @@ const { Sider, Content } = Layout;
 const DashboardLayout: FC<IDashboardLayoutProps> = ({ children }) => (
   // eslint-disable-next-line react/jsx-no-useless-fragment
   <Layout>
-    <Sider className={styles.sider}>
+    <Sider theme="light" className={styles.sider}>
       <Image src={LogoImg.src} alt="Logo" width={50} preview={false} />
       <DashboardMenu />
     </Sider>
