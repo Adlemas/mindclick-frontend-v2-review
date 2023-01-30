@@ -3,4 +3,5 @@ export interface AuthState {
   refreshToken: string | null;
   isAuthenticated: boolean;
   loading: boolean;
+  refreshing: boolean;
 }
