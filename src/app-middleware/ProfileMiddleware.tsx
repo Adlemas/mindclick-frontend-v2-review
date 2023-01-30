@@ -1,10 +1,10 @@
 import { FC, useEffect } from "react";
-import { Spin } from "antd";
 import { isEqual } from "lodash";
 import { MiddlewareProps } from "@/types/middleware";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { getProfileAction } from "@/redux/slices/profile";
 import DashboardLayout from "@/container/DashboardLayout";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const ProfileMiddleware: FC<MiddlewareProps> = ({ children }) => {
   const isAuthenticated = useAppSelector(
@@ -26,18 +26,7 @@ const ProfileMiddleware: FC<MiddlewareProps> = ({ children }) => {
   }, []);
 
   if (loading) {
-    return (
-      <div
-        style={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Spin tip="Загружаем данные профиля..." />
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   return <DashboardLayout>{children}</DashboardLayout>;

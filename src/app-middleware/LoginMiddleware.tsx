@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import { FC, useEffect } from "react";
-import { Spin } from "antd";
 import { MiddlewareProps } from "@/types/middleware";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { getItemFromLocal } from "@/utils/localStorage";
 import { logout, refreshAction } from "@/redux/slices/auth";
+import LoadingScreen from "@/components/LoadingScreen";
 
 const LoginMiddleware: FC<MiddlewareProps> = ({ children }) => {
   const router = useRouter();
@@ -47,18 +47,7 @@ const LoginMiddleware: FC<MiddlewareProps> = ({ children }) => {
   }, [dispatch]);
 
   if (refreshing || (isAuthPage && localIsAuthenticated)) {
-    return (
-      <div
-        style={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Spin tip="Загрузка..." />
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
