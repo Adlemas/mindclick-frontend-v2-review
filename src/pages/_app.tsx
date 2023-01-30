@@ -1,77 +1,11 @@
 import "@/styles/globals.scss";
 import type { AppProps } from "next/app";
 import ruRU from "antd/locale/ru_RU";
-import { ConfigProvider, Spin, theme } from "antd";
+import { ConfigProvider, theme } from "antd";
 import { Provider } from "react-redux";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 import { store } from "@/redux/store";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { getItemFromLocal } from "@/utils/localStorage";
-import { logout, refreshAction } from "@/redux/slices/auth";
-
-interface MiddlewareProps {
-  Component: AppProps["Component"];
-  pageProps: AppProps["pageProps"];
-}
-
-const AppLoginMiddleware = ({ Component, pageProps }: MiddlewareProps) => {
-  const router = useRouter();
-  const { pathname } = router;
-
-  const dispatch = useAppDispatch();
-
-  const isAuthPage = pathname === "/login";
-  const { isAuthenticated, refreshing } = useAppSelector((state) => state.auth);
-  const localIsAuthenticated = getItemFromLocal("isAuthenticated");
-
-  useEffect(() => {
-    if (isAuthPage && isAuthenticated) {
-      router.push("/");
-      return;
-    }
-
-    if (!isAuthPage && !isAuthenticated) {
-      router.push("/login");
-      return;
-    }
-
-    if (!isAuthenticated && localIsAuthenticated) {
-      dispatch(refreshAction());
-    }
-  }, [localIsAuthenticated, isAuthenticated, isAuthPage, router, dispatch]);
-
-  useEffect(() => {
-    const logoutEvent = () => {
-      dispatch(logout());
-    };
-
-    // Set Global Event
-    window.addEventListener("logout", logoutEvent);
-
-    return () => {
-      // Remove Global Event
-      window.removeEventListener("logout", logoutEvent);
-    };
-  }, [dispatch]);
-
-  if (refreshing || (isAuthPage && localIsAuthenticated)) {
-    return (
-      <div
-        style={{
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Spin tip="Загрузка..." />
-      </div>
-    );
-  }
-
-  return <Component {...pageProps} />;
-};
+import LoginMiddleware from "@/app-middleware/LoginMiddleware";
+import ProfileMiddleware from "@/app-middleware/ProfileMiddleware";
 
 const App = ({ Component, pageProps }: AppProps) => (
   <ConfigProvider
@@ -98,7 +32,11 @@ const App = ({ Component, pageProps }: AppProps) => (
     }}
   >
     <Provider store={store}>
-      <AppLoginMiddleware pageProps={pageProps} Component={Component} />
+      <LoginMiddleware>
+        <ProfileMiddleware>
+          <Component {...pageProps} />
+        </ProfileMiddleware>
+      </LoginMiddleware>
     </Provider>
   </ConfigProvider>
 );
