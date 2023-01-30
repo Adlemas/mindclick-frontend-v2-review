@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { store } from "@/redux/store";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { getItemFromLocal } from "@/utils/localStorage";
-import { refreshAction } from "@/redux/slices/auth";
+import { logout, refreshAction } from "@/redux/slices/auth";
 
 interface MiddlewareProps {
   Component: AppProps["Component"];
@@ -40,6 +40,20 @@ const AppLoginMiddleware = ({ Component, pageProps }: MiddlewareProps) => {
       dispatch(refreshAction());
     }
   }, [localIsAuthenticated, isAuthenticated, isAuthPage, router, dispatch]);
+
+  useEffect(() => {
+    const logoutEvent = () => {
+      dispatch(logout());
+    };
+
+    // Set Global Event
+    window.addEventListener("logout", logoutEvent);
+
+    return () => {
+      // Remove Global Event
+      window.removeEventListener("logout", logoutEvent);
+    };
+  }, [dispatch]);
 
   if (refreshing || (isAuthPage && localIsAuthenticated)) {
     return (
