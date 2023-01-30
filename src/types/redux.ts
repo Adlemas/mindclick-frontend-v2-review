@@ -1,3 +1,5 @@
+import { IUser } from "@/types/entity";
+
 export interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
@@ -7,6 +9,6 @@ export interface AuthState {
 }
 
 export interface ProfileState {
-  profile: any;
+  profile: IUser;
   loading: boolean;
 }
