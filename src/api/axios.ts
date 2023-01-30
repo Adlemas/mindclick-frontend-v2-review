@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign,no-underscore-dangle */
 import Axios from "axios";
+import { message } from "antd";
 import { getItemFromLocal, setItemInLocal } from "@/utils/localStorage";
 import { RefreshTokenResponse } from "@/types/api/auth";
 
@@ -9,6 +10,16 @@ const axios = Axios.create({
     "Accept-Language": "ru",
   },
 });
+
+const deleteSession = () => {
+  // Call window "logout" event
+  window.dispatchEvent(new Event("forceLogout"));
+
+  message.error({
+    content: "Ваша сессия истекла, пожалуйста, войдите заново",
+    key: "message-logout",
+  });
+};
 
 const refreshTokens = async () => {
   const refreshToken = getItemFromLocal("refreshToken");
@@ -57,6 +68,8 @@ const refreshTokens = async () => {
     return tokens.data;
   }
 
+  setItemInLocal("refreshing.axios", false);
+
   return null;
 };
 
@@ -101,13 +114,7 @@ axios.interceptors.response.use(
           return axios(originalConfig);
         }
       } catch (e: any) {
-        // Call window "logout" event
-        window.dispatchEvent(new Event("forceLogout"));
-
-        if (e.response && e.response.data) {
-          return Promise.reject(e.response.data);
-        }
-
+        deleteSession();
         return Promise.reject(e);
       }
     }
