@@ -10,11 +10,15 @@ const ProfileMiddleware: FC<MiddlewareProps> = ({ children }) => {
     (state) => state.auth.isAuthenticated,
     isEqual
   );
-  const { loading } = useAppSelector((state) => state.profile, isEqual);
+
+  const { loading, profile } = useAppSelector(
+    (state) => state.profile,
+    isEqual
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (isAuthenticated && !loading) {
+    if (isAuthenticated && !loading && !profile) {
       dispatch(getProfileAction());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
