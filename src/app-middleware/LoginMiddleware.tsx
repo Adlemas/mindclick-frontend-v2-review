@@ -38,11 +38,11 @@ const LoginMiddleware: FC<MiddlewareProps> = ({ children }) => {
     };
 
     // Set Global Event
-    window.addEventListener("logout", logoutEvent);
+    window.addEventListener("forceLogout", logoutEvent);
 
     return () => {
       // Remove Global Event
-      window.removeEventListener("logout", logoutEvent);
+      window.removeEventListener("forceLogout", logoutEvent);
     };
   }, [dispatch]);
 
