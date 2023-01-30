@@ -4,6 +4,7 @@ import { isEqual } from "lodash";
 import { MiddlewareProps } from "@/types/middleware";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { getProfileAction } from "@/redux/slices/profile";
+import DashboardLayout from "@/container/DashboardLayout";
 
 const ProfileMiddleware: FC<MiddlewareProps> = ({ children }) => {
   const isAuthenticated = useAppSelector(
@@ -39,10 +40,7 @@ const ProfileMiddleware: FC<MiddlewareProps> = ({ children }) => {
     );
   }
 
-  return (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    <>{children}</>
-  );
+  return <DashboardLayout>{children}</DashboardLayout>;
 };
 
 export default ProfileMiddleware;
