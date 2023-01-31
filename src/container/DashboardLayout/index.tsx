@@ -19,7 +19,7 @@ const DashboardLayout: FC<IDashboardLayoutProps> = ({ children }) => (
       <Image src={LogoImg.src} alt="Logo" width={50} preview={false} />
       <DashboardMenu />
     </Sider>
-    <Content>{children}</Content>
+    <Content className={styles.content}>{children}</Content>
   </Layout>
 );
 
