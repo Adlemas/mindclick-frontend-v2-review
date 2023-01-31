@@ -44,10 +44,13 @@ const MembersTable: FC = () => {
     <Table
       className={styles.table}
       columns={columns}
-      dataSource={[profile]}
-      scroll={{
-        y: "calc(100vh - 72px - 65px - 55px)",
+      dataSource={new Array(30).fill(profile)}
+      pagination={{
+        pageSize: 30,
       }}
+      // scroll={{
+      //   y: "calc(100vh - 72px - 65px - 55px)",
+      // }}
     />
   );
 };
