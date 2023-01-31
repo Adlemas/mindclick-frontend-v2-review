@@ -6,6 +6,7 @@ import DashboardMenu from "@/components/DashboardMenu";
 
 import styles from "./styles.module.scss";
 import DashboardNav from "@/components/DashboardNav";
+import Button from "@/components/UI/Button";
 
 interface IDashboardLayoutProps {
   children: ReactNode;
@@ -13,18 +14,28 @@ interface IDashboardLayoutProps {
 
 const { Sider, Content } = Layout;
 
-const DashboardLayout: FC<IDashboardLayoutProps> = ({ children }) => (
-  // eslint-disable-next-line react/jsx-no-useless-fragment
-  <Layout>
-    <Sider theme="light" className={styles.sider}>
-      <Image src={LogoImg.src} alt="Logo" width={50} preview={false} />
-      <DashboardMenu />
-    </Sider>
-    <Content>
-      <DashboardNav />
-      {children}
-    </Content>
-  </Layout>
-);
+const DashboardLayout: FC<IDashboardLayoutProps> = ({ children }) => {
+  const handleLogout = () => {
+    window.dispatchEvent(new Event("forceLogout"));
+  };
+
+  return (
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    <Layout>
+      <Sider theme="light" className={styles.sider}>
+        <Image src={LogoImg.src} alt="Logo" width={50} preview={false} />
+        <DashboardMenu />
+      </Sider>
+      <Content>
+        <DashboardNav>
+          <Button type="outline" onClick={handleLogout} secondary>
+            Logout
+          </Button>
+        </DashboardNav>
+        {children}
+      </Content>
+    </Layout>
+  );
+};
 
 export default DashboardLayout;
