@@ -1,6 +1,8 @@
 import type { FC } from "react";
 import { Table } from "antd";
 
-const MembersTable: FC = () => <Table />;
+import styles from "./styles.module.scss";
+
+const MembersTable: FC = () => <Table className={styles.table} />;
 
 export default MembersTable;
