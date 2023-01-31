@@ -42,6 +42,7 @@ const membersSlice = createSlice({
       state.records = action.payload.records;
       state.totalCount = action.payload.totalCount;
       state.totalPages = action.payload.totalPages;
+      state.page = action.payload.page;
     });
     builder.addCase(getMembersAction.rejected, (state) => {
       state.loading = false;
