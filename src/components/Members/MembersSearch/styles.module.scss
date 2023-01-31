@@ -17,11 +17,14 @@
   }
 
   &__Input {
-    width: 250px;
-  }
+    width: 300px;
 
-  &__Button {
-    margin-left: 10px;
+    &__Addon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+    }
   }
 
   &__Result {
