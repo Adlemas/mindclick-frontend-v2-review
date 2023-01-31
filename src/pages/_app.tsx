@@ -3,11 +3,24 @@ import type { AppProps } from "next/app";
 import ruRU from "antd/locale/ru_RU";
 import { ConfigProvider, theme } from "antd";
 import { Provider } from "react-redux";
+import dynamic from "next/dynamic";
 import { store } from "@/redux/store";
 import LoginMiddleware from "@/app-middleware/LoginMiddleware";
 import ProfileMiddleware from "@/app-middleware/ProfileMiddleware";
 
-const App = ({ Component, pageProps }: AppProps) => (
+const MainLayout = ({ Component, pageProps }: AppProps) => (
+  <LoginMiddleware>
+    <ProfileMiddleware>
+      <Component {...pageProps} />
+    </ProfileMiddleware>
+  </LoginMiddleware>
+);
+
+const App = dynamic(() => Promise.resolve(MainLayout), {
+  ssr: false,
+});
+
+const AppWrapper = ({ Component, pageProps, router }: AppProps) => (
   <ConfigProvider
     locale={ruRU}
     theme={{
@@ -34,13 +47,9 @@ const App = ({ Component, pageProps }: AppProps) => (
     }}
   >
     <Provider store={store}>
-      <LoginMiddleware>
-        <ProfileMiddleware>
-          <Component {...pageProps} />
-        </ProfileMiddleware>
-      </LoginMiddleware>
+      <App pageProps={pageProps} Component={Component} router={router} />
     </Provider>
   </ConfigProvider>
 );
 
-export default App;
+export default AppWrapper;
