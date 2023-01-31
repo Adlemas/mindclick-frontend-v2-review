@@ -51,8 +51,16 @@ const MembersTable: FC = () => {
       pageSize: LOAD_MEMBERS_SIZE,
       current: page,
       total: totalCount,
+      onChange(newPage) {
+        dispatch(
+          getMembersAction({
+            page: newPage,
+            size: LOAD_MEMBERS_SIZE,
+          })
+        );
+      },
     }),
-    [page, totalCount]
+    [dispatch, page, totalCount]
   );
 
   useEffect(() => {
