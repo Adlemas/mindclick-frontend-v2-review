@@ -6,6 +6,7 @@ export interface GetMembersPayload {
 }
 
 export interface GetMembersResponse {
+  page: number;
   records: Array<IUser>;
   totalCount: number;
   totalPages: number;
