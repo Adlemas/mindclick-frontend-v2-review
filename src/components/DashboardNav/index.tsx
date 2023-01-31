@@ -17,13 +17,14 @@ interface IDashboardNavProps {
 const DashboardNav: FC<IDashboardNavProps> = ({ children, title }) => {
   const { profile } = useAppSelector((state) => state.profile, isEqual);
   const { token, theme: currentTheme } = theme.useToken();
-  const { colorTextLightSolid, colorText, colorBgLayout, colorPrimary } = token;
+  const { colorTextLightSolid, colorText, colorBgContainer, colorPrimary } =
+    token;
 
   return (
     <Header
       className={styles.header}
       style={{
-        background: currentTheme.id === Theme.Dark ? colorBgLayout : "#fff",
+        background: currentTheme.id === Theme.Dark ? colorBgContainer : "#fff",
       }}
     >
       <div>
