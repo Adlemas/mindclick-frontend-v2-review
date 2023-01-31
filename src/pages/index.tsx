@@ -4,7 +4,7 @@ import Button from "@/components/UI/Button";
 
 const Home: NextPage = () => (
   <>
-    <DashboardNav>
+    <DashboardNav title="Главная панель">
       <Button type="outline" secondary>
         Выйти
       </Button>
