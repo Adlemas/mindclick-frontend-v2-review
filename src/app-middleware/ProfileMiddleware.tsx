@@ -29,6 +29,13 @@ const ProfileMiddleware: FC<MiddlewareProps> = ({ children }) => {
     return <LoadingScreen />;
   }
 
+  if (!isAuthenticated) {
+    return (
+      // eslint-disable-next-line react/jsx-no-useless-fragment
+      <>{children}</>
+    );
+  }
+
   return <DashboardLayout>{children}</DashboardLayout>;
 };
 
