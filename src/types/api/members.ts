@@ -3,6 +3,7 @@ import { IUser } from "@/types/entity";
 export interface GetMembersPayload {
   page: number;
   size: number;
+  query?: string;
 }
 
 export interface GetMembersResponse {
