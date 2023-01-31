@@ -19,4 +19,5 @@ export interface MembersState {
   totalPages: number;
   page: number;
   loading: boolean;
+  query: string;
 }
