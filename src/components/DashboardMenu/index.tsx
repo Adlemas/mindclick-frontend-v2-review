@@ -45,7 +45,7 @@ const Item: FC<ItemProps> = (props) => {
       onMouseOver={() => handleMouse(itemKey)}
       onMouseOut={() => handleMouse(itemKey)}
     >
-      <Link href="/">
+      <Link href={itemKey}>
         {pathname === itemKey || hoverKey === itemKey ? hoverIcon : icon}
       </Link>
     </Menu.Item>
