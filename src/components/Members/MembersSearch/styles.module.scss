@@ -1,0 +1,28 @@
+
+
+.search {
+  &__Wrapper {
+    background-color: #fff;
+    padding: 15px 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > div {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &__Input {
+    width: 250px;
+  }
+
+  &__Button {
+    margin-left: 10px;
+  }
+
+  &__Result {
+  }
+}
