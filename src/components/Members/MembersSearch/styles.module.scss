@@ -2,8 +2,8 @@
 
 .search {
   &__Wrapper {
-    background-color: #fff;
     height: 65px;
+    min-height: 65px;
     padding-inline: 10px;
 
     display: flex;
