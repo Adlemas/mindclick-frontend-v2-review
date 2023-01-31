@@ -1,17 +1,24 @@
 import type { FC } from "react";
 import { theme, Typography } from "antd";
 import { RiSearch2Line } from "react-icons/ri";
+import { isEqual } from "lodash";
 import StyledInput from "@/components/UI/StyledInput";
 import Button from "@/components/UI/Button";
 
 import styles from "./styles.module.scss";
 import Theme from "@/types/theme";
+import { useAppSelector } from "@/redux/hooks";
 
 const { Text } = Typography;
 
 const MembersSearch: FC = () => {
   const { token, theme: currentTheme } = theme.useToken();
   const { colorBgContainer } = token;
+
+  const totalMembers = useAppSelector(
+    (state) => state.members.totalCount,
+    isEqual
+  );
 
   return (
     <div
@@ -33,7 +40,7 @@ const MembersSearch: FC = () => {
       </div>
       <div>
         <Text className={styles.search__Result}>
-          Найдено <Text strong>1200</Text> пользователей
+          Найдено <Text strong>{totalMembers ?? 0}</Text> пользователей
         </Text>
       </div>
     </div>
