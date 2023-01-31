@@ -3,17 +3,37 @@ import { theme, Typography } from "antd";
 import { RiSearch2Line } from "react-icons/ri";
 import { isEqual } from "lodash";
 import StyledInput from "@/components/UI/StyledInput";
-import Button from "@/components/UI/Button";
 
 import styles from "./styles.module.scss";
 import Theme from "@/types/theme";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import {
+  getMembersAction,
+  LOAD_MEMBERS_SIZE,
+  setQuery,
+} from "@/redux/slices/members";
 
 const { Text } = Typography;
 
 const MembersSearch: FC = () => {
   const { token, theme: currentTheme } = theme.useToken();
   const { colorBgContainer } = token;
+
+  const query = useAppSelector((state) => state.members.query, isEqual);
+  const dispatch = useAppDispatch();
+
+  const handleChange = (value: string) => {
+    dispatch(setQuery(value));
+  };
+
+  const handleSearch = () => {
+    dispatch(
+      getMembersAction({
+        size: LOAD_MEMBERS_SIZE,
+        page: 1,
+      })
+    );
+  };
 
   const totalMembers = useAppSelector(
     (state) => state.members.totalCount,
@@ -30,13 +50,20 @@ const MembersSearch: FC = () => {
     >
       <div>
         <StyledInput
+          type="search"
+          enterButton={
+            <div className={styles.search__Input__Addon}>
+              <RiSearch2Line />
+              Поиск
+            </div>
+          }
+          value={query}
+          onChange={(e) => handleChange(e.target.value)}
+          onSearch={handleSearch}
           className={styles.search__Input}
           placeholder="Искать по имени/почте/группе"
           allowClear
         />
-        <Button icon={<RiSearch2Line />} className={styles.search__Button}>
-          Поиск
-        </Button>
       </div>
       <div>
         <Text className={styles.search__Result}>
