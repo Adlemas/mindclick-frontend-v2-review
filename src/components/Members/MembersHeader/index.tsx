@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { RiAddCircleLine } from "react-icons/all";
+import { RiAddCircleLine } from "react-icons/ri";
 import DashboardNav from "@/components/DashboardNav";
 import Button from "@/components/UI/Button";
 

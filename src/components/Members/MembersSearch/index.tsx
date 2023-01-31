@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { Typography } from "antd";
-import { RiSearch2Line } from "react-icons/all";
+import { RiSearch2Line } from "react-icons/ri";
 import StyledInput from "@/components/UI/StyledInput";
 import Button from "@/components/UI/Button";
 
