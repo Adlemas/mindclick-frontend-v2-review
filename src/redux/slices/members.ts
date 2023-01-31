@@ -1,13 +1,15 @@
 /* eslint-disable no-param-reassign */
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { MembersState } from "@/types/redux";
 import { GetMembersPayload, GetMembersResponse } from "@/types/api/members";
 import getMembers from "@/api/members/getMembers";
 import handleAxiosError from "@/utils/handleAxiosError";
+import type { RootState } from "@/redux/store";
 
-export const LOAD_MEMBERS_SIZE = 1;
+export const LOAD_MEMBERS_SIZE = 15;
 
 const initialState: MembersState = {
+  query: "",
   records: [],
   loading: false,
   page: 1,
@@ -17,10 +19,16 @@ const initialState: MembersState = {
 
 export const getMembersAction = createAsyncThunk<
   GetMembersResponse,
-  GetMembersPayload
->("members/getMembers", async (params, { rejectWithValue }) => {
+  GetMembersPayload,
+  { state: RootState }
+>("members/getMembers", async (params, { rejectWithValue, getState }) => {
   try {
-    return await getMembers(params);
+    const membersState = getState().members;
+    const { query } = membersState;
+    return await getMembers({
+      ...params,
+      query,
+    });
   } catch (e) {
     handleAxiosError(e);
     return rejectWithValue(e);
@@ -32,6 +40,9 @@ const membersSlice = createSlice({
   initialState,
   reducers: {
     resetMembers: () => initialState,
+    setQuery: (state, action: PayloadAction<string>) => {
+      state.query = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getMembersAction.pending, (state) => {
@@ -50,6 +61,6 @@ const membersSlice = createSlice({
   },
 });
 
-export const { resetMembers } = membersSlice.actions;
+export const { resetMembers, setQuery } = membersSlice.actions;
 
 export default membersSlice.reducer;
