@@ -1,12 +1,14 @@
 import type { FC } from "react";
-import { Table } from "antd";
+import { Table, TablePaginationConfig } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { isEqual } from "lodash";
+import { useEffect, useMemo } from "react";
 import { IUser } from "@/types/entity";
 
 import styles from "./styles.module.scss";
 import getFullName from "@/utils/getFullName";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { getMembersAction, LOAD_MEMBERS_SIZE } from "@/redux/slices/members";
 
 const columns: ColumnsType<IUser> = [
   {
@@ -38,19 +40,38 @@ const columns: ColumnsType<IUser> = [
 ];
 
 const MembersTable: FC = () => {
-  const { profile } = useAppSelector((state) => state.profile, isEqual);
+  const { loading, records, page, totalCount } = useAppSelector(
+    (state) => state.members,
+    isEqual
+  );
+  const dispatch = useAppDispatch();
+
+  const pagination = useMemo<TablePaginationConfig>(
+    () => ({
+      pageSize: LOAD_MEMBERS_SIZE,
+      current: page,
+      total: totalCount,
+    }),
+    [page, totalCount]
+  );
+
+  useEffect(() => {
+    dispatch(
+      getMembersAction({
+        page,
+        size: LOAD_MEMBERS_SIZE,
+      })
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Table
       className={styles.table}
       columns={columns}
-      dataSource={new Array(30).fill(profile)}
-      pagination={{
-        pageSize: 30,
-      }}
-      // scroll={{
-      //   y: "calc(100vh - 72px - 65px - 55px)",
-      // }}
+      loading={loading}
+      dataSource={records}
+      pagination={pagination}
     />
   );
 };
