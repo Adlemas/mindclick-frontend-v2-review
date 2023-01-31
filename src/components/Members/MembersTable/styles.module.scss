@@ -1,6 +1,10 @@
 
 
 .table {
+  :global(.ant-table-body) {
+    min-height: calc(100vh - 72px - 65px - 55px);
+  }
+
   table {
     min-height: inherit;
   }
