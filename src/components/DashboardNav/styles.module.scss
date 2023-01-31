@@ -1,11 +1,37 @@
 
 .header {
   //width: 100%;
-  background: #fff !important;
+  //background: #fff !important;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
   padding-right: 1.5rem !important;
+}
+
+.organization {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.5rem;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-left: .5rem;
+
+    :global(.ant-typography) {
+      margin: 0;
+      padding: 0;
+      line-height: 17.5px;
+
+      &:first-child {
+        font-size: .75rem !important;
+        font-weight: 500;
+      }
+    }
+  }
 }
