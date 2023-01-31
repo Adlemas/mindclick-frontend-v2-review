@@ -5,7 +5,7 @@ import { GetMembersPayload, GetMembersResponse } from "@/types/api/members";
 import getMembers from "@/api/members/getMembers";
 import handleAxiosError from "@/utils/handleAxiosError";
 
-export const LOAD_MEMBERS_SIZE = 10;
+export const LOAD_MEMBERS_SIZE = 1;
 
 const initialState: MembersState = {
   records: [],
