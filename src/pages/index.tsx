@@ -1,16 +1,6 @@
 import type { NextPage } from "next";
-import DashboardNav from "@/components/DashboardNav";
-import Button from "@/components/UI/Button";
+import HomeView from "@/views/HomeView";
 
-const Home: NextPage = () => (
-  <>
-    <DashboardNav title="Главная панель">
-      <Button type="outline" secondary>
-        Выйти
-      </Button>
-    </DashboardNav>
-    <div>Вот такой вот простой текст</div>
-  </>
-);
+const Home: NextPage = () => <HomeView />;
 
 export default Home;
