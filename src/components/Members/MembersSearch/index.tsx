@@ -61,7 +61,7 @@ const MembersSearch: FC = () => {
           onChange={(e) => handleChange(e.target.value)}
           onSearch={handleSearch}
           className={styles.search__Input}
-          placeholder="Искать по имени/почте/группе"
+          placeholder="Искать по имени/почте/телефону"
           allowClear
         />
       </div>
