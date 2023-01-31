@@ -1,11 +1,11 @@
 import type { FC } from "react";
-import { Typography } from "antd";
+import MembersSearch from "@/components/Members/MembersSearch";
+import MembersTable from "@/components/Members/MembersTable";
 
 const MembersContent: FC = () => (
   <div>
-    <Typography.Paragraph>
-      Скоро здесь появится информация о ваших учениках
-    </Typography.Paragraph>
+    <MembersSearch />
+    <MembersTable />
   </div>
 );
 
