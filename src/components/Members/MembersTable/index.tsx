@@ -3,12 +3,14 @@ import { Table, TablePaginationConfig } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { isEqual } from "lodash";
 import { useEffect, useMemo } from "react";
+import { RiEditFill } from "react-icons/ri";
 import { IUser } from "@/types/entity";
 
 import styles from "./styles.module.scss";
 import getFullName from "@/utils/getFullName";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { getMembersAction, LOAD_MEMBERS_SIZE } from "@/redux/slices/members";
+import Button from "@/components/UI/Button";
 
 const columns: ColumnsType<IUser> = [
   {
@@ -36,6 +38,16 @@ const columns: ColumnsType<IUser> = [
     title: "Номер телефона",
     dataIndex: "phone",
     key: "phone",
+  },
+  {
+    title: "Действия",
+    dataIndex: "actions",
+    key: "actions",
+    render: () => (
+      <Button icon={<RiEditFill />} type="outline" secondary>
+        Редактировать
+      </Button>
+    ),
   },
 ];
 
