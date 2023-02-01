@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Col, Form, Row, Select } from "antd";
+import { Col, DatePicker, Form, Row, Select } from "antd";
 import { useMemo } from "react";
 import { uniqBy } from "lodash";
 import StyledInput from "@/components/UI/StyledInput";
@@ -115,6 +115,9 @@ const AddMemberForm: FC<AddMemberFormProps> = ({ onSubmit, onCancel }) => {
           }
           placeholder="xxx-xxx-xxxx"
         />
+      </Item>
+      <Item name="birthDate" label="Дата рождения">
+        <DatePicker placeholder="Выберите дату рождения..." />
       </Item>
       <Item
         label="Пароль"
