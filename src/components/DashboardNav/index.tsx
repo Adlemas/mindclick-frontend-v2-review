@@ -25,6 +25,7 @@ const DashboardNav: FC<IDashboardNavProps> = ({ children, title }) => {
       className={styles.header}
       style={{
         background: currentTheme.id === Theme.Dark ? colorBgContainer : "#fff",
+        borderColor: currentTheme.id === Theme.Light ? "#e8e8e8" : "#252525",
       }}
     >
       <div>
