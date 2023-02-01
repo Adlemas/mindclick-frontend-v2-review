@@ -27,8 +27,12 @@ const AppWrapper = ({ Component, pageProps, router }: AppProps) => (
       algorithm: theme.defaultAlgorithm,
       token: {
         // yellow primary color
-        colorPrimary: "#FFC107",
-        colorTextLightSolid: "#141414",
+        // colorPrimary: "#FFC107",
+        colorPrimary: "#593C8F",
+        // colorTextLightSolid: "#141414",
+        // colorTextSecondary: "#141414",
+        colorTextLightSolid: "#fefefe",
+        colorTextSecondary: "#DB5461",
         borderRadius: 4,
         controlHeight: 36,
         // colorFill: "red",

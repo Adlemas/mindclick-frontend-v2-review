@@ -11,9 +11,14 @@ const Button: FC<IButtonProps> = (props) => {
   const { secondary, type, ...rest } = props;
   const { token, theme: currentTheme } = theme.useToken();
 
-  const textColor = secondary ? token.colorWhite : token.colorTextLightSolid;
+  // eslint-disable-next-line no-nested-ternary
+  const textColor = secondary
+    ? type === "outline"
+      ? token.colorTextSecondary
+      : token.colorTextLightSolid
+    : token.colorTextLightSolid;
   const backgroundColor = secondary
-    ? token.colorTextLightSolid
+    ? token.colorTextSecondary
     : token.colorPrimary;
 
   return (
