@@ -4,6 +4,7 @@ import { useState } from "react";
 import DashboardNav from "@/components/DashboardNav";
 import Button from "@/components/UI/Button";
 import Panel from "@/components/UI/Panel";
+import AddMemberForm from "@/forms/AddMemberForm";
 
 const MembersHeader: FC = () => {
   const [addMemberPanel, setAddMemberPanel] = useState<boolean>();
@@ -25,7 +26,7 @@ const MembersHeader: FC = () => {
         width="25rem"
         onClose={() => setAddMemberPanel(false)}
       >
-        hello
+        <AddMemberForm onCancel={() => setAddMemberPanel(false)} />
       </Panel>
     </>
   );
