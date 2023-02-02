@@ -11,6 +11,6 @@ body,
 }
 
 * {
-  font-family: $font-family;
+  font-family: $font-family !important;
   font-weight: 500;
 }
