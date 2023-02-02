@@ -1,5 +1,6 @@
 import { FC, useEffect } from "react";
 import { isEqual } from "lodash";
+import { useRouter } from "next/router";
 import { MiddlewareProps } from "@/types/middleware";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { getProfileAction } from "@/redux/slices/profile";
@@ -11,6 +12,9 @@ const ProfileMiddleware: FC<MiddlewareProps> = ({ children }) => {
     (state) => state.auth.isAuthenticated,
     isEqual
   );
+
+  const router = useRouter();
+  const isNotAuthPage = router.pathname !== "/login";
 
   const { loading, profile } = useAppSelector(
     (state) => state.profile,
@@ -30,6 +34,9 @@ const ProfileMiddleware: FC<MiddlewareProps> = ({ children }) => {
   }
 
   if (!isAuthenticated) {
+    if (isNotAuthPage) {
+      return <LoadingScreen />;
+    }
     return (
       // eslint-disable-next-line react/jsx-no-useless-fragment
       <>{children}</>
