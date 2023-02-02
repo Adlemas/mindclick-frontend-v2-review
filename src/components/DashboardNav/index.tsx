@@ -17,13 +17,7 @@ interface IDashboardNavProps {
 const DashboardNav: FC<IDashboardNavProps> = ({ children, title }) => {
   const { profile } = useAppSelector((state) => state.profile, isEqual);
   const { token, theme: currentTheme } = theme.useToken();
-  const {
-    colorTextSecondary,
-    colorTextLightSolid,
-    colorText,
-    colorBgContainer,
-    colorPrimary,
-  } = token;
+  const { colorTextSecondary, colorTextLightSolid, colorBgContainer } = token;
 
   return (
     <Header
@@ -38,14 +32,8 @@ const DashboardNav: FC<IDashboardNavProps> = ({ children, title }) => {
           <Avatar
             src={profile?.profileImg}
             style={{
-              backgroundColor:
-                currentTheme.id === Theme.Light
-                  ? colorTextSecondary
-                  : colorPrimary,
-              color:
-                currentTheme.id === Theme.Light
-                  ? colorTextLightSolid
-                  : colorText,
+              backgroundColor: colorTextSecondary,
+              color: colorTextLightSolid,
             }}
           >
             {profile?.firstName?.charAt(0)}
