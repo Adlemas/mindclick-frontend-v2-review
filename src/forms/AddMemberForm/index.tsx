@@ -1,10 +1,11 @@
 import type { FC } from "react";
-import { Col, Form, Row, Select, DatePicker } from "antd";
+import { Col, Form, Row, DatePicker } from "antd";
 import { useMemo } from "react";
 import { uniqBy } from "lodash";
 import moment from "moment";
 import StyledInput from "@/components/UI/StyledInput";
 import Button from "@/components/UI/Button";
+import Select from "@/components/UI/Select";
 import countryPhoneData from "@/data/countryPhoneData";
 
 import styles from "./styles.module.scss";
