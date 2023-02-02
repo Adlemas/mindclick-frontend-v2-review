@@ -1,6 +1,5 @@
 import { Button as AntButton, ButtonProps, theme } from "antd";
 import { FC } from "react";
-import Theme from "@/types/theme";
 
 interface IButtonProps extends Omit<ButtonProps, "type"> {
   secondary?: boolean;
@@ -9,7 +8,7 @@ interface IButtonProps extends Omit<ButtonProps, "type"> {
 
 const Button: FC<IButtonProps> = (props) => {
   const { secondary, type, ...rest } = props;
-  const { token, theme: currentTheme } = theme.useToken();
+  const { token } = theme.useToken();
 
   // eslint-disable-next-line no-nested-ternary
   const textColor = secondary
@@ -32,14 +31,8 @@ const Button: FC<IButtonProps> = (props) => {
           backgroundColor,
         }),
         ...(type === "outline" && {
-          color:
-            currentTheme.id === Theme.Dark
-              ? token.colorPrimary
-              : backgroundColor,
-          borderColor:
-            currentTheme.id === Theme.Dark
-              ? token.colorPrimary
-              : backgroundColor,
+          color: textColor,
+          borderColor: backgroundColor,
         }),
       }}
     />
