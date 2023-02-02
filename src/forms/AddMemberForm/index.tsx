@@ -1,10 +1,16 @@
 import type { FC } from "react";
-import { Col, DatePicker, Form, Row, Select } from "antd";
+import { Col, Form, Row, Select, DatePicker } from "antd";
 import { useMemo } from "react";
 import { uniqBy } from "lodash";
+import moment from "moment";
 import StyledInput from "@/components/UI/StyledInput";
 import Button from "@/components/UI/Button";
 import countryPhoneData from "@/data/countryPhoneData";
+
+import styles from "./styles.module.scss";
+import PasswordStrengthIndicator, {
+  passwordSuggestions,
+} from "@/container/PasswordStrengthIndicator";
 
 const { Item, useForm } = Form;
 
@@ -31,7 +37,12 @@ const AddMemberForm: FC<AddMemberFormProps> = ({ onSubmit, onCancel }) => {
   );
 
   return (
-    <Form layout="vertical" form={form} onFinish={onSubmit}>
+    <Form
+      className={styles.form}
+      layout="vertical"
+      form={form}
+      onFinish={onSubmit}
+    >
       <Item
         label="Имя"
         name="firstName"
@@ -116,8 +127,37 @@ const AddMemberForm: FC<AddMemberFormProps> = ({ onSubmit, onCancel }) => {
           placeholder="xxx-xxx-xxxx"
         />
       </Item>
-      <Item name="birthDate" label="Дата рождения">
-        <DatePicker placeholder="Выберите дату рождения..." />
+      <Item
+        name="birthDate"
+        label="Дата рождения"
+        rules={[
+          {
+            required: true,
+            message: "Пожалуйста, введите дату рождения!",
+          },
+          {
+            validator(_, value) {
+              if (!value) {
+                return Promise.resolve();
+              }
+              if (moment().diff(value, "years") < 3) {
+                return Promise.reject(
+                  new Error("Возраст должен быть не менее 3 лет!")
+                );
+              }
+              return Promise.resolve();
+            },
+          },
+        ]}
+        required
+      >
+        <DatePicker
+          placeholder="Выберите дату рождения..."
+          format="DD-MM-YYYY"
+          disabledDate={(current) =>
+            current && current > moment().startOf("day")
+          }
+        />
       </Item>
       <Item
         label="Пароль"
@@ -127,10 +167,17 @@ const AddMemberForm: FC<AddMemberFormProps> = ({ onSubmit, onCancel }) => {
             required: true,
             message: "Пожалуйста, введите пароль!",
           },
+          ...passwordSuggestions.map((suggestion) => ({
+            pattern: suggestion.regex,
+            message: suggestion.message,
+          })),
         ]}
+        validateTrigger="onSubmit"
         required
       >
-        <StyledInput type="password" placeholder="Придумайте пароль..." />
+        <PasswordStrengthIndicator>
+          <StyledInput type="password" placeholder="Придумайте пароль..." />
+        </PasswordStrengthIndicator>
       </Item>
       <Item
         label="Повтор пароля"
