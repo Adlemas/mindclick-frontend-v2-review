@@ -18,6 +18,16 @@ export interface Plan {
   maxMembers: number;
 }
 
+export interface IGroup {
+  _id: string;
+  name: string;
+  maxMembers: number;
+  owner: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
 export interface IUser {
   _id: string;
 
@@ -63,9 +73,11 @@ export interface IUser {
 
   balance: number;
 
+  group?: IGroup;
+
   isAdmin: boolean;
 
   createdAt: string;
 
-  group: string;
+  groupId: string;
 }
