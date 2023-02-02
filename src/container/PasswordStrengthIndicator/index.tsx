@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from "react";
 import React, { Children } from "react";
-import { Slider } from "antd";
+import { Slider, Typography } from "antd";
 
 import {
   RiCheckboxBlankCircleLine,
@@ -11,6 +11,8 @@ import styles from "./styles.module.scss";
 interface PasswordStrengthIndicatorProps {
   children: ReactNode;
 }
+
+const { Text } = Typography;
 
 export const passwordSuggestions = [
   {
@@ -82,7 +84,7 @@ const PasswordStrengthIndicator: FC<PasswordStrengthIndicatorProps> = (
               ) : (
                 <RiCheckboxBlankCircleLine color="#555" />
               )}{" "}
-              {suggestion.message}
+              <Text type="secondary">{suggestion.message}</Text>
             </li>
           ))}
         </ul>
