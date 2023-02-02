@@ -1,0 +1,19 @@
+
+
+
+.indicator {
+  &__suggestions {
+    padding: 0;
+    list-style: none;
+    margin: 0 0 1rem;
+
+    li {
+      margin: 0 0 0.5rem;
+      font-size: 0.8rem;
+
+      display: flex;
+      align-items: center;
+      gap: .3rem;
+    }
+  }
+}
