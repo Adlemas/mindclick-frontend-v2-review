@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Table, TablePaginationConfig } from "antd";
+import { Table, TablePaginationConfig, Tag } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { isEqual } from "lodash";
 import { useEffect, useMemo } from "react";
@@ -38,6 +38,17 @@ const columns: ColumnsType<IUser> = [
     title: "Номер телефона",
     dataIndex: "phone",
     key: "phone",
+  },
+  {
+    title: "Группа",
+    dataIndex: ["group", "name"],
+    key: "group.name",
+    // if group is null, then it will be "-"
+    render: (name: string) => (
+      <Tag color="blue" key={name}>
+        {name ?? "-"}
+      </Tag>
+    ),
   },
   {
     title: "Действия",
