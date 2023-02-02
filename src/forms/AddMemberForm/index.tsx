@@ -2,7 +2,7 @@ import type { FC } from "react";
 import { Col, Form, Row, DatePicker } from "antd";
 import { useMemo } from "react";
 import { uniqBy } from "lodash";
-import moment from "moment";
+import moment, { Moment } from "moment";
 import StyledInput from "@/components/UI/StyledInput";
 import Button from "@/components/UI/Button";
 import Select from "@/components/UI/Select";
@@ -16,12 +16,24 @@ import PasswordStrengthIndicator, {
 const { Item, useForm } = Form;
 
 export interface AddMemberFormProps {
-  onSubmit?: () => void;
   onCancel?: () => void;
 }
 
-const AddMemberForm: FC<AddMemberFormProps> = ({ onSubmit, onCancel }) => {
-  const [form] = useForm();
+interface FormValues {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: {
+    mobile: string;
+    code: string;
+  };
+  birthDate: Moment;
+  password: string;
+  password_repeat: string;
+}
+
+const AddMemberForm: FC<AddMemberFormProps> = ({ onCancel }) => {
+  const [form] = useForm<FormValues>();
 
   const countryCodeOptions = useMemo(
     () =>
@@ -37,11 +49,29 @@ const AddMemberForm: FC<AddMemberFormProps> = ({ onSubmit, onCancel }) => {
     []
   );
 
+  const onSubmit = (values: FormValues) => {
+    console.log({ values });
+  };
+
   return (
     <Form
       className={styles.form}
       layout="vertical"
       form={form}
+      initialValues={
+        {
+          firstName: "",
+          lastName: "",
+          email: "",
+          birthDate: moment().subtract(1, "years"),
+          phone: {
+            mobile: "",
+            code: "+7",
+          },
+          password: "",
+          password_repeat: "",
+        } as FormValues
+      }
       onFinish={onSubmit}
     >
       <Item
