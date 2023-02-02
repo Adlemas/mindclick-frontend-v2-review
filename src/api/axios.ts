@@ -96,6 +96,7 @@ axios.interceptors.response.use(
     const pathname = error.config.url;
 
     if (
+      error.response &&
       error.response.status === 401 &&
       !originalConfig._retry &&
       pathname !== "auth/refresh" &&
