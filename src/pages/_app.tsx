@@ -47,6 +47,10 @@ const AppWrapper = ({ Component, pageProps, router }: AppProps) => (
           colorPrimary: "#141414",
           colorPrimaryHover: "#141414",
         },
+        Pagination: {
+          colorPrimary: "#DB5461",
+          colorPrimaryHover: "#b4404b",
+        },
       },
     }}
   >
