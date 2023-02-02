@@ -81,7 +81,16 @@
 }
 
 .ant-form-item {
-  margin-bottom: 12px !important;
+  margin-bottom: 16px !important;
+}
+
+.ant-form-item-required {
+  flex-direction: row-reverse;
+
+  &::before {
+    margin-inline-end: 0;
+    margin-inline-start: 4px;
+  }
 }
 
 .ant-layout {
