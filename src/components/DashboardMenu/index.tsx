@@ -1,5 +1,5 @@
 import { FC, ReactNode, useState } from "react";
-import { Menu, theme } from "antd";
+import { Menu, theme, Tooltip } from "antd";
 import Link from "next/link";
 import { RiHomeFill, RiHomeLine, RiUserFill, RiUserLine } from "react-icons/ri";
 
@@ -11,6 +11,7 @@ interface ItemProps {
   hoverIcon: ReactNode;
   itemKey: string;
   hoverKey?: string;
+  hoverTitle?: string;
   pathname: string;
   // eslint-disable-next-line no-unused-vars
   handleMouse: (key: string) => void;
@@ -23,6 +24,7 @@ const Item: FC<ItemProps> = (props) => {
     hoverIcon,
     handleMouse,
     hoverKey,
+    hoverTitle,
     pathname,
     ...nativeProps
   } = props;
@@ -31,29 +33,32 @@ const Item: FC<ItemProps> = (props) => {
   const { colorPrimary, colorTextLightSolid } = token;
 
   return (
-    <Menu.Item
-      {...nativeProps}
-      key={itemKey}
-      style={
-        pathname === itemKey
-          ? {
-              backgroundColor: colorPrimary,
-              color: colorTextLightSolid,
-            }
-          : {}
-      }
-      onMouseOver={() => handleMouse(itemKey)}
-      onMouseOut={() => handleMouse(itemKey)}
-    >
-      <Link href={itemKey}>
-        {pathname === itemKey || hoverKey === itemKey ? hoverIcon : icon}
-      </Link>
-    </Menu.Item>
+    <Tooltip title={hoverTitle} placement="right">
+      <Menu.Item
+        {...nativeProps}
+        key={itemKey}
+        style={
+          pathname === itemKey
+            ? {
+                backgroundColor: colorPrimary,
+                color: colorTextLightSolid,
+              }
+            : {}
+        }
+        onMouseOver={() => handleMouse(itemKey)}
+        onMouseOut={() => handleMouse(itemKey)}
+      >
+        <Link href={itemKey}>
+          {pathname === itemKey || hoverKey === itemKey ? hoverIcon : icon}
+        </Link>
+      </Menu.Item>
+    </Tooltip>
   );
 };
 
 Item.defaultProps = {
   hoverKey: undefined,
+  hoverTitle: undefined,
 };
 
 const DashboardMenu: FC = () => {
@@ -73,6 +78,7 @@ const DashboardMenu: FC = () => {
           hoverIcon={<RiHomeFill />}
           itemKey="/"
           hoverKey={hoverKey}
+          hoverTitle="Главная"
           handleMouse={handleMouse}
           pathname={pathname}
         />
@@ -81,6 +87,7 @@ const DashboardMenu: FC = () => {
           hoverIcon={<RiUserFill />}
           itemKey="/members"
           hoverKey={hoverKey}
+          hoverTitle="Участники"
           handleMouse={handleMouse}
           pathname={pathname}
         />
