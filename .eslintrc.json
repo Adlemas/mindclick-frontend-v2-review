@@ -8,7 +8,12 @@
     "next/core-web-vitals"
   ],
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "react/function-component-definition": "off",
     "react/jsx-props-no-spreading": "off",
     "import/extensions": "off",
