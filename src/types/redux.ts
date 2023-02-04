@@ -9,7 +9,7 @@ export interface AuthState {
 }
 
 export interface ProfileState {
-  profile: IUser;
+  profile: IUser | null;
   loading: boolean;
 }
 
