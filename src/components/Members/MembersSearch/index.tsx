@@ -106,6 +106,7 @@ const MembersSearch: FC = () => {
           Найдено <Text strong>{totalMembers ?? 0}</Text> пользователей
         </Text>
         <Select
+          className={styles.search__Select}
           options={groupsOptions}
           loading={groupsLoading}
           value={groupId}
