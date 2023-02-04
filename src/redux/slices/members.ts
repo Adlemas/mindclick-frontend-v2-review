@@ -102,6 +102,9 @@ const membersSlice = createSlice({
         message.success("Ученик успешно добавлен");
       }
     });
+    builder.addCase(createMemberAction.rejected, (state) => {
+      state.creating = false;
+    });
   },
 });
 
