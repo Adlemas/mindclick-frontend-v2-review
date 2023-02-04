@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { GroupsState } from "@/types/redux";
 import { IGroup } from "@/types/entity";
 import handleAxiosError from "@/utils/handleAxiosError";
+import getGroups from "@/api/groups/getGroups";
 
 const initialState: GroupsState = {
   records: [],
@@ -13,7 +14,7 @@ export const getGroupsAction = createAsyncThunk<Array<IGroup>, void>(
   "groups/getGroupsAction",
   async (_, { rejectWithValue }) => {
     try {
-      return [];
+      return await getGroups();
     } catch (err) {
       handleAxiosError(err);
       return rejectWithValue(err);
