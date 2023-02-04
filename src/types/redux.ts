@@ -1,4 +1,4 @@
-import { IUser } from "@/types/entity";
+import type { IGroup, IUser } from "@/types/entity";
 
 export interface AuthState {
   accessToken: string | null;
@@ -20,4 +20,9 @@ export interface MembersState {
   page: number;
   loading: boolean;
   query: string;
+}
+
+export interface GroupsState {
+  records: Array<IGroup>;
+  loading: boolean;
 }
