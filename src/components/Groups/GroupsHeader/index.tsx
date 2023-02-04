@@ -4,6 +4,7 @@ import { useState } from "react";
 import DashboardNav from "@/components/DashboardNav";
 import Button from "@/components/UI/Button";
 import Panel from "@/components/UI/Panel";
+import AddGroupForm from "@/forms/AddGroupForm";
 
 const GroupsHeader: FC = () => {
   const [addGroupPanel, setAddGroupPanel] = useState<boolean>();
@@ -29,7 +30,7 @@ const GroupsHeader: FC = () => {
         width="25rem"
         onClose={handleAddGroupCancel}
       >
-        <p>Форма добавления группы</p>
+        <AddGroupForm onCancel={handleAddGroupCancel} />
       </Panel>
     </>
   );
