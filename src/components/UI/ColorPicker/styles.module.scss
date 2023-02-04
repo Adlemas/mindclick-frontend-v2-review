@@ -1,0 +1,12 @@
+
+.popover {
+  :global(.ant-popover-inner) {
+    padding: 0 !important;
+  }
+}
+
+.color {
+    width: 20px;
+    height: 20px;
+  border-radius: 50%;
+}
