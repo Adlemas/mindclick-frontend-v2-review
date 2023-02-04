@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { Col, Form, Row, DatePicker } from "antd";
-import { useMemo } from "react";
-import { uniqBy } from "lodash";
+import { useEffect, useMemo } from "react";
+import { isEqual, uniqBy } from "lodash";
 import moment, { Moment } from "moment";
 import StyledInput from "@/components/UI/StyledInput";
 import Button from "@/components/UI/Button";
@@ -12,6 +12,10 @@ import styles from "./styles.module.scss";
 import PasswordStrengthIndicator, {
   passwordSuggestions,
 } from "@/container/PasswordStrengthIndicator";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { getGroupsAction } from "@/redux/slices/groups";
+// import { createMemberAction } from "@/redux/slices/members";
+import RatePointsField from "@/components/UI/RatePointsField";
 
 const { Item, useForm } = Form;
 
@@ -28,12 +32,32 @@ interface FormValues {
     code: string;
   };
   birthDate: Moment;
+  rate: number;
+  points: number;
   password: string;
   password_repeat: string;
 }
 
 const AddMemberForm: FC<AddMemberFormProps> = ({ onCancel }) => {
+  const { loading: groupsLoading, records } = useAppSelector(
+    (state) => state.groups,
+    isEqual
+  );
+  const creating = useAppSelector((state) => state.members.creating, isEqual);
+
   const [form] = useForm<FormValues>();
+
+  const dispatch = useAppDispatch();
+
+  const groupsOptions = useMemo(
+    () =>
+      records.map((d) => ({
+        // eslint-disable-next-line no-underscore-dangle
+        value: d._id,
+        label: d.name,
+      })),
+    [records]
+  );
 
   const countryCodeOptions = useMemo(
     () =>
@@ -50,8 +74,32 @@ const AddMemberForm: FC<AddMemberFormProps> = ({ onCancel }) => {
   );
 
   const onSubmit = (values: FormValues) => {
-    console.log({ values });
+    const firstName = values.firstName.trim();
+    const lastName = values.lastName.trim();
+    const email = values.email.trim();
+    const phone = values.phone.code + values.phone.mobile.trim();
+    const birthDate = values.birthDate.toJSON();
+    const password = values.password.trim();
+    const { rate } = values;
+    const { points } = values;
+    console.log({
+      firstName,
+      lastName,
+      email,
+      phone,
+      birthDate,
+      password,
+      rate,
+      points,
+    });
   };
+
+  useEffect(() => {
+    if (!groupsLoading) {
+      dispatch(getGroupsAction());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Form
@@ -191,6 +239,24 @@ const AddMemberForm: FC<AddMemberFormProps> = ({ onCancel }) => {
         />
       </Item>
       <Item
+        label="Группа"
+        name="groupId"
+        rules={[
+          {
+            required: true,
+            message: "Пожалуйста, выберите группу!",
+          },
+        ]}
+        required
+      >
+        <Select
+          loading={groupsLoading}
+          options={groupsOptions}
+          placeholder="Выберите группу"
+        />
+      </Item>
+      <RatePointsField />
+      <Item
         label="Пароль"
         name="password"
         rules={[
@@ -233,7 +299,9 @@ const AddMemberForm: FC<AddMemberFormProps> = ({ onCancel }) => {
       <Item>
         <Row gutter={12}>
           <Col>
-            <Button htmlType="submit">Создать</Button>
+            <Button htmlType="submit" loading={creating}>
+              Создать
+            </Button>
           </Col>
           <Col>
             <Button onClick={onCancel} type="outline" secondary>
