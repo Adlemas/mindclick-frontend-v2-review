@@ -4,6 +4,7 @@ import { ColumnsType } from "antd/lib/table";
 import { isEqual } from "lodash";
 import { useEffect, useMemo } from "react";
 import { RiEditFill } from "react-icons/ri";
+import moment from "moment";
 import { IUser } from "@/types/entity";
 
 import styles from "./styles.module.scss";
@@ -49,6 +50,12 @@ const columns: ColumnsType<IUser> = [
         {name ?? "-"}
       </Tag>
     ),
+  },
+  {
+    title: "Создана",
+    dataIndex: "createdAt",
+    key: "createdAt",
+    render: (createdAt: string) => moment(createdAt).format("DD.MM.YYYY HH:mm"),
   },
   {
     title: "Действия",
