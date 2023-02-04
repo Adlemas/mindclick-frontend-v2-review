@@ -32,14 +32,23 @@ export const getGroupsAction = createAsyncThunk<Array<IGroup>, void>(
 export const createGroupAction = createAsyncThunk<
   CreateGroupResponse,
   CreateGroupPayload
->("groups/createGroupAction", async (payload, { rejectWithValue }) => {
-  try {
-    return await createGroup(payload);
-  } catch (err) {
-    handleAxiosError(err);
-    return rejectWithValue(err);
+>(
+  "groups/createGroupAction",
+  async (payload, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await createGroup(payload);
+
+      if (response) {
+        dispatch(getGroupsAction());
+      }
+
+      return response;
+    } catch (err) {
+      handleAxiosError(err);
+      return rejectWithValue(err);
+    }
   }
-});
+);
 
 const groupsSlice = createSlice({
   name: "groups",
