@@ -102,7 +102,7 @@ const MembersSearch: FC = () => {
         />
       </div>
       <div>
-        <Text className={styles.search__Result}>
+        <Text className={styles.search__Result} type="secondary">
           Найдено <Text strong>{totalMembers ?? 0}</Text> пользователей
         </Text>
         <Select
