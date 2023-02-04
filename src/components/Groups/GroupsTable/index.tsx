@@ -1,8 +1,8 @@
 import type { FC } from "react";
-import { Table, TablePaginationConfig, Tag } from "antd";
+import { Table, Tag } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { isEqual } from "lodash";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { RiEditFill } from "react-icons/ri";
 import { IUser } from "@/types/entity";
 
@@ -41,28 +41,11 @@ const columns: ColumnsType<IUser> = [
 ];
 
 const GroupsTable: FC = () => {
-  const { loading, records, page, totalCount } = useAppSelector(
+  const { loading, records, page } = useAppSelector(
     (state) => state.members,
     isEqual
   );
   const dispatch = useAppDispatch();
-
-  const pagination = useMemo<TablePaginationConfig>(
-    () => ({
-      pageSize: LOAD_MEMBERS_SIZE,
-      current: page,
-      total: totalCount,
-      onChange(newPage) {
-        dispatch(
-          getMembersAction({
-            page: newPage,
-            size: LOAD_MEMBERS_SIZE,
-          })
-        );
-      },
-    }),
-    [dispatch, page, totalCount]
-  );
 
   useEffect(() => {
     dispatch(
@@ -80,7 +63,7 @@ const GroupsTable: FC = () => {
       columns={columns}
       loading={loading}
       dataSource={records}
-      pagination={pagination}
+      pagination={false}
     />
   );
 };
