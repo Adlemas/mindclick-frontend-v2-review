@@ -4,14 +4,14 @@ import { ColumnsType } from "antd/lib/table";
 import { isEqual } from "lodash";
 import { useEffect } from "react";
 import { RiEditFill } from "react-icons/ri";
-import { IUser } from "@/types/entity";
+import type { IGroup } from "@/types/entity";
 
 import styles from "./styles.module.scss";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { getMembersAction, LOAD_MEMBERS_SIZE } from "@/redux/slices/members";
 import Button from "@/components/UI/Button";
+import { getGroupsAction } from "@/redux/slices/groups";
 
-const columns: ColumnsType<IUser> = [
+const columns: ColumnsType<IGroup> = [
   {
     title: "Название",
     dataIndex: "name",
@@ -41,19 +41,11 @@ const columns: ColumnsType<IUser> = [
 ];
 
 const GroupsTable: FC = () => {
-  const { loading, records, page } = useAppSelector(
-    (state) => state.members,
-    isEqual
-  );
+  const { loading, records } = useAppSelector((state) => state.groups, isEqual);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(
-      getMembersAction({
-        page,
-        size: LOAD_MEMBERS_SIZE,
-      })
-    );
+    dispatch(getGroupsAction());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
