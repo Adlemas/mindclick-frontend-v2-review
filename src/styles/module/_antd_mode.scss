@@ -29,6 +29,10 @@
   }
 }
 
+.ant-table-cell {
+  white-space: nowrap !important;
+}
+
 /* custom scrollbar */
 ::-webkit-scrollbar {
   width: 20px;
