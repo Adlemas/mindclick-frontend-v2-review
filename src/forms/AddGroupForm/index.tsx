@@ -15,10 +15,12 @@ interface AddGroupFormProps {
 
 interface FormValues {
   name: string;
+  color: string;
 }
 
 const initialValues: FormValues = {
   name: "",
+  color: "#1e90ff",
 };
 
 const AddGroupForm: FC<AddGroupFormProps> = ({ onCancel }) => {
@@ -66,6 +68,7 @@ const AddGroupForm: FC<AddGroupFormProps> = ({ onCancel }) => {
         name="color"
         valuePropName="color"
         label="Цвет"
+        tooltip="Чтобы указать цвет группы используйте HEX-код или нажмите на кружок снизу для выбора готового цвета"
         rules={[
           {
             required: true,
