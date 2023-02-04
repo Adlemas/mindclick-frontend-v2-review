@@ -2,14 +2,16 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { MembersState } from "@/types/redux";
-import { GetMembersPayload, GetMembersResponse } from "@/types/api/members";
+import type {
+  CreateMemberPayload,
+  CreateMemberResponse,
+  GetMembersPayload,
+  GetMembersResponse,
+} from "@/types/api/members";
 import getMembers from "@/api/members/getMembers";
 import handleAxiosError from "@/utils/handleAxiosError";
 import type { RootState } from "@/redux/store";
-import createMember, {
-  CreateMemberPayload,
-  CreateMemberResponse,
-} from "@/api/members/createMember";
+import createMember from "@/api/members/createMember";
 
 export const LOAD_MEMBERS_SIZE = 15;
 
@@ -98,7 +100,7 @@ const membersSlice = createSlice({
     builder.addCase(createMemberAction.fulfilled, (state, action) => {
       state.creating = false;
       // eslint-disable-next-line no-underscore-dangle
-      if (action.payload._id) {
+      if (action.payload?._id) {
         message.success("Ученик успешно добавлен");
       }
     });
