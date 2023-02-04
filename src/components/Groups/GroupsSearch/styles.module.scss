@@ -1,0 +1,32 @@
+
+
+.search {
+  &__Wrapper {
+    height: 65px;
+    min-height: 65px;
+    padding-inline: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > div {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &__Input {
+    width: 350px;
+
+    &__Addon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+    }
+  }
+
+  &__Result {
+  }
+}
