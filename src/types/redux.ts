@@ -26,4 +26,5 @@ export interface MembersState {
 export interface GroupsState {
   records: Array<IGroup>;
   loading: boolean;
+  creating: boolean;
 }
