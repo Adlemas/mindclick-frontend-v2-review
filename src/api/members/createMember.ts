@@ -1,19 +1,8 @@
 import axios from "@/api/axios";
-import { IUser } from "@/types/entity";
-
-export interface CreateMemberPayload {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  birthDate: string;
-  rate: number;
-  points: number;
-  groupId: string;
-  password: string;
-}
-
-export interface CreateMemberResponse extends Omit<IUser, "password"> {}
+import type {
+  CreateMemberPayload,
+  CreateMemberResponse,
+} from "@/types/api/members";
 
 const createMember = async (
   params: CreateMemberPayload

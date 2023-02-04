@@ -1,7 +1,5 @@
-import type { IGroup } from "@/types/entity";
 import axios from "@/api/axios";
-
-export type GetGroupsResponse = Array<IGroup>;
+import type { GetGroupsResponse } from "@/types/api/groups";
 
 const getGroups = async (): Promise<GetGroupsResponse> => {
   const response = await axios.get("/groups");

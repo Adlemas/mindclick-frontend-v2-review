@@ -12,3 +12,17 @@ export interface GetMembersResponse {
   totalCount: number;
   totalPages: number;
 }
+
+export interface CreateMemberPayload {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  birthDate: string;
+  rate: number;
+  points: number;
+  groupId: string;
+  password: string;
+}
+
+export interface CreateMemberResponse extends Omit<IUser, "password"> {}
