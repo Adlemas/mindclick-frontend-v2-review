@@ -5,6 +5,7 @@ import StyledInput from "@/components/UI/StyledInput";
 import Button from "@/components/UI/Button";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { createGroupAction } from "@/redux/slices/groups";
+import ColorPicker from "@/components/UI/ColorPicker";
 
 const { Item, useForm } = Form;
 
@@ -60,6 +61,24 @@ const AddGroupForm: FC<AddGroupFormProps> = ({ onCancel }) => {
         required
       >
         <StyledInput placeholder="Название группы" maxLength={50} />
+      </Item>
+      <Item
+        name="color"
+        valuePropName="color"
+        label="Цвет"
+        rules={[
+          {
+            required: true,
+            message: "Пожалуйста, выберите цвет группы",
+          },
+          {
+            pattern: /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/,
+            message: "Пожалуйста, введите корректный цвет группы",
+          },
+        ]}
+        required
+      >
+        <ColorPicker />
       </Item>
       <Item>
         <Row gutter={12}>
