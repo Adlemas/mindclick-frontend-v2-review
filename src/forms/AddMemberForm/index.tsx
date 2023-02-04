@@ -97,9 +97,11 @@ const AddMemberForm: FC<AddMemberFormProps> = ({ onCancel }) => {
         points,
         groupId,
       })
-    ).then(() => {
-      form.resetFields();
-      if (onCancel) onCancel();
+    ).then((value) => {
+      if (!(value as any).error) {
+        form.resetFields();
+        if (onCancel) onCancel();
+      }
     });
   };
 
