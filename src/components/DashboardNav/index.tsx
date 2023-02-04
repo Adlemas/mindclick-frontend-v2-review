@@ -1,14 +1,11 @@
 import { FC, ReactNode } from "react";
-import { Avatar, Layout, theme, Typography } from "antd";
+import { Layout, theme } from "antd";
 
-import { isEqual } from "lodash";
 import styles from "./styles.module.scss";
-import { useAppSelector } from "@/redux/hooks";
 import Theme from "@/types/theme";
-import getFullName from "@/utils/getFullName";
+import Profile from "@/components/DashboardNav/Profile";
 
 const { Header } = Layout;
-const { Text } = Typography;
 
 interface IDashboardNavProps {
   children?: ReactNode;
@@ -16,9 +13,8 @@ interface IDashboardNavProps {
 }
 
 const DashboardNav: FC<IDashboardNavProps> = ({ children, title }) => {
-  const { profile } = useAppSelector((state) => state.profile, isEqual);
   const { token, theme: currentTheme } = theme.useToken();
-  const { colorTextSecondary, colorTextLightSolid, colorBgContainer } = token;
+  const { colorBgContainer } = token;
 
   return (
     <Header
@@ -29,23 +25,7 @@ const DashboardNav: FC<IDashboardNavProps> = ({ children, title }) => {
       }}
     >
       <div>
-        <div className={styles.organization}>
-          <Avatar
-            src={profile?.profileImg}
-            style={{
-              backgroundColor: colorTextSecondary,
-              color: colorTextLightSolid,
-            }}
-          >
-            {profile?.firstName?.charAt(0)}
-          </Avatar>
-          <div>
-            <Text type="secondary">
-              {profile ? getFullName(profile) : "Преподаватель"}
-            </Text>
-            <Text>{profile?.email}</Text>
-          </div>
-        </div>
+        <Profile />
       </div>
       <div>{title}</div>
       <div>{children}</div>
