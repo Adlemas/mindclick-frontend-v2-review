@@ -5,6 +5,7 @@ import { isEqual } from "lodash";
 import styles from "./styles.module.scss";
 import { useAppSelector } from "@/redux/hooks";
 import Theme from "@/types/theme";
+import getFullName from "@/utils/getFullName";
 
 const { Header } = Layout;
 const { Text } = Typography;
@@ -39,7 +40,9 @@ const DashboardNav: FC<IDashboardNavProps> = ({ children, title }) => {
             {profile?.firstName?.charAt(0)}
           </Avatar>
           <div>
-            <Text type="secondary">Не привязано к центру</Text>
+            <Text type="secondary">
+              {profile ? getFullName(profile) : "Преподаватель"}
+            </Text>
             <Text>{profile?.email}</Text>
           </div>
         </div>
