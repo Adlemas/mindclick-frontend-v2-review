@@ -17,6 +17,7 @@ export const LOAD_MEMBERS_SIZE = 15;
 
 const initialState: MembersState = {
   query: "",
+  groupId: null,
   records: [],
   loading: false,
   creating: false,
@@ -32,10 +33,11 @@ export const getMembersAction = createAsyncThunk<
 >("members/getMembers", async (params, { rejectWithValue, getState }) => {
   try {
     const membersState = getState().members;
-    const { query } = membersState;
+    const { query, groupId } = membersState;
     return await getMembers({
       ...params,
       query,
+      groupId,
     });
   } catch (e) {
     handleAxiosError(e);
@@ -78,6 +80,9 @@ const membersSlice = createSlice({
     setQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
     },
+    setGroupId: (state, action: PayloadAction<string | null>) => {
+      state.groupId = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getMembersAction.pending, (state) => {
@@ -110,6 +115,6 @@ const membersSlice = createSlice({
   },
 });
 
-export const { resetMembers, setQuery } = membersSlice.actions;
+export const { resetMembers, setQuery, setGroupId } = membersSlice.actions;
 
 export default membersSlice.reducer;

@@ -21,6 +21,7 @@ export interface MembersState {
   loading: boolean;
   creating: boolean;
   query: string;
+  groupId: string | null;
 }
 
 export interface GroupsState {

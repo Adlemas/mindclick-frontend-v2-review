@@ -4,6 +4,7 @@ export interface GetMembersPayload {
   page: number;
   size: number;
   query?: string;
+  groupId?: string | null;
 }
 
 export interface GetMembersResponse {
