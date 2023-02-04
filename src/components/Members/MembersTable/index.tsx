@@ -45,8 +45,8 @@ const columns: ColumnsType<IUser> = [
     dataIndex: ["group", "name"],
     key: "group.name",
     // if group is null, then it will be "-"
-    render: (name: string) => (
-      <Tag color="blue" key={name}>
+    render: (name: string, { group }) => (
+      <Tag color={group?.color ?? undefined} key={name}>
         {name ?? "-"}
       </Tag>
     ),
