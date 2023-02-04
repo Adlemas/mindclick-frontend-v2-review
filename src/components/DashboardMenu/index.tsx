@@ -1,9 +1,9 @@
 import { FC, ReactNode, useState } from "react";
-import { Menu, theme, Tooltip } from "antd";
-import Link from "next/link";
+import { Menu, theme } from "antd";
 import { RiHomeFill, RiHomeLine, RiUserFill, RiUserLine } from "react-icons/ri";
 
 import { useRouter } from "next/router";
+import { MenuItemType } from "antd/lib/menu/hooks/useItems";
 import styles from "./styles.module.scss";
 
 interface ItemProps {
@@ -15,50 +15,37 @@ interface ItemProps {
   pathname: string;
   // eslint-disable-next-line no-unused-vars
   handleMouse: (key: string) => void;
+  // eslint-disable-next-line no-unused-vars
+  handleClick: (key: string) => void;
 }
 
-const Item: FC<ItemProps> = (props) => {
+const renderItem = (props: ItemProps): MenuItemType => {
   const {
     itemKey,
     icon,
     hoverIcon,
     handleMouse,
+    handleClick,
     hoverKey,
     hoverTitle,
     pathname,
-    ...nativeProps
   } = props;
 
   const { token } = theme.useToken();
   const { colorPrimary, colorTextLightSolid } = token;
 
-  return (
-    <Tooltip title={hoverTitle} placement="right">
-      <Menu.Item
-        {...nativeProps}
-        key={itemKey}
-        style={
-          pathname === itemKey
-            ? {
-                backgroundColor: colorPrimary,
-                color: colorTextLightSolid,
-              }
-            : {}
-        }
-        onMouseOver={() => handleMouse(itemKey)}
-        onMouseOut={() => handleMouse(itemKey)}
-      >
-        <Link href={itemKey}>
-          {pathname === itemKey || hoverKey === itemKey ? hoverIcon : icon}
-        </Link>
-      </Menu.Item>
-    </Tooltip>
-  );
-};
-
-Item.defaultProps = {
-  hoverKey: undefined,
-  hoverTitle: undefined,
+  return {
+    key: itemKey,
+    icon: hoverKey === itemKey ? hoverIcon : icon,
+    title: hoverTitle,
+    style:
+      pathname === itemKey
+        ? { color: colorTextLightSolid, backgroundColor: colorPrimary }
+        : undefined,
+    onClick: () => handleClick(itemKey),
+    onMouseEnter: () => handleMouse(itemKey),
+    onMouseLeave: () => handleMouse(itemKey),
+  };
 };
 
 const DashboardMenu: FC = () => {
@@ -67,31 +54,45 @@ const DashboardMenu: FC = () => {
   const selectedKeys = [pathname];
   const [hoverKey, setHoverKey] = useState<string>();
 
+  const router = useRouter();
+
+  const handleClick = (itemKey: string) => {
+    router.push(itemKey);
+  };
+
   const handleMouse = (key: string) =>
     setHoverKey((prev) => (prev === key ? undefined : key));
 
+  const commonProps = {
+    pathname,
+    handleMouse,
+    handleClick,
+    hoverKey,
+  };
+
   return (
     <div>
-      <Menu theme="light" className={styles.menu} selectedKeys={selectedKeys}>
-        <Item
-          icon={<RiHomeLine />}
-          hoverIcon={<RiHomeFill />}
-          itemKey="/"
-          hoverKey={hoverKey}
-          hoverTitle="Главная"
-          handleMouse={handleMouse}
-          pathname={pathname}
-        />
-        <Item
-          icon={<RiUserLine />}
-          hoverIcon={<RiUserFill />}
-          itemKey="/members"
-          hoverKey={hoverKey}
-          hoverTitle="Участники"
-          handleMouse={handleMouse}
-          pathname={pathname}
-        />
-      </Menu>
+      <Menu
+        theme="light"
+        className={styles.menu}
+        selectedKeys={selectedKeys}
+        items={[
+          renderItem({
+            icon: <RiHomeLine />,
+            hoverIcon: <RiHomeFill />,
+            itemKey: "/",
+            hoverTitle: "Главная",
+            ...commonProps,
+          }),
+          renderItem({
+            icon: <RiUserLine />,
+            hoverIcon: <RiUserFill />,
+            itemKey: "/members",
+            hoverTitle: "Участники",
+            ...commonProps,
+          }),
+        ]}
+      />
     </div>
   );
 };

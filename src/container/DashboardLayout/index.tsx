@@ -22,6 +22,7 @@ const DashboardLayout: FC<IDashboardLayoutProps> = ({ children }) => {
       <Sider
         theme="light"
         className={styles.sider}
+        collapsed
         style={{
           borderColor: currentTheme.id === Theme.Light ? "#e8e8e8" : "#252525",
         }}
