@@ -95,9 +95,12 @@ axios.interceptors.response.use(
     const originalConfig = error.config;
     const pathname = error.config.url;
 
+    if (error?.response?.status !== 401) {
+      return Promise.reject(error);
+    }
+
     if (
       error.response &&
-      error.response.status === 401 &&
       !originalConfig._retry &&
       pathname !== "auth/refresh" &&
       pathname !== "auth/login"
@@ -110,8 +113,7 @@ axios.interceptors.response.use(
           setItemInLocal("accessToken", tokens.accessToken);
           setItemInLocal("refreshToken", tokens.refreshToken);
 
-          axios.defaults.headers.common.Authorization = `Bearer ${tokens.accessToken}`;
-
+          originalConfig._retry = false;
           return axios(originalConfig);
         }
       } catch (e: any) {
