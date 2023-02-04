@@ -30,9 +30,11 @@ const AddGroupForm: FC<AddGroupFormProps> = ({ onCancel }) => {
   const [form] = useForm();
 
   const handleSubmit = (values: FormValues) => {
-    dispatch(createGroupAction(values)).then(() => {
-      form.resetFields();
-      if (onCancel) onCancel();
+    dispatch(createGroupAction(values)).then((value) => {
+      if (!(value as any).error) {
+        form.resetFields();
+        if (onCancel) onCancel();
+      }
     });
   };
 
