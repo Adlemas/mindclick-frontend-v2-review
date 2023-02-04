@@ -91,6 +91,11 @@
 .ant-form-item-required {
   flex-direction: row-reverse;
 
+  .anticon-question-circle {
+    margin-inline-start: 0 !important;
+    margin-inline-end: 4px !important;
+  }
+
   &::before {
     margin-inline-end: 0;
     margin-inline-start: 4px;
