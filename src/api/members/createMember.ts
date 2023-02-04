@@ -18,7 +18,7 @@ export interface CreateMemberResponse extends Omit<IUser, "password"> {}
 const createMember = async (
   params: CreateMemberPayload
 ): Promise<CreateMemberResponse> => {
-  const response = await axios.post("/members", params);
+  const response = await axios.post("users", params);
 
   return response.data;
 };
