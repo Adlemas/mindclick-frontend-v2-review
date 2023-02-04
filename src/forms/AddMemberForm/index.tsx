@@ -14,7 +14,7 @@ import PasswordStrengthIndicator, {
 } from "@/container/PasswordStrengthIndicator";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { getGroupsAction } from "@/redux/slices/groups";
-// import { createMemberAction } from "@/redux/slices/members";
+import { createMemberAction } from "@/redux/slices/members";
 import RatePointsField from "@/components/UI/RatePointsField";
 
 const { Item, useForm } = Form;
@@ -35,6 +35,7 @@ interface FormValues {
   rate: number;
   points: number;
   password: string;
+  groupId: string;
   password_repeat: string;
 }
 
@@ -80,17 +81,25 @@ const AddMemberForm: FC<AddMemberFormProps> = ({ onCancel }) => {
     const phone = values.phone.code + values.phone.mobile.trim();
     const birthDate = values.birthDate.toJSON();
     const password = values.password.trim();
+    const { groupId } = values;
     const { rate } = values;
     const { points } = values;
-    console.log({
-      firstName,
-      lastName,
-      email,
-      phone,
-      birthDate,
-      password,
-      rate,
-      points,
+
+    dispatch(
+      createMemberAction({
+        firstName,
+        lastName,
+        email,
+        phone,
+        birthDate,
+        password,
+        rate,
+        points,
+        groupId,
+      })
+    ).then(() => {
+      form.resetFields();
+      if (onCancel) onCancel();
     });
   };
 
