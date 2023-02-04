@@ -10,6 +10,7 @@ import {
   setItemInLocal,
 } from "@/utils/localStorage";
 import refresh from "@/api/auth/refresh";
+import { getProfileAction } from "@/redux/slices/profile";
 
 const initialState: AuthState = {
   accessToken: getItemFromLocal("accessToken") || null,
@@ -21,9 +22,15 @@ const initialState: AuthState = {
 
 export const loginAction = createAsyncThunk<LoginResponse, LoginPayload>(
   "auth/loginAction",
-  async (payload, { rejectWithValue }) => {
+  async (payload, { rejectWithValue, dispatch }) => {
     try {
-      return await login(payload);
+      const response = await login(payload);
+
+      if (response) {
+        dispatch(getProfileAction());
+      }
+
+      return response;
     } catch (err) {
       handleAxiosError(err);
       return rejectWithValue(err);
