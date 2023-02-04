@@ -22,6 +22,7 @@ export interface IGroup {
   _id: string;
   name: string;
   maxMembers: number;
+  color?: string;
   owner: string;
   createdAt: string;
   updatedAt: string;
