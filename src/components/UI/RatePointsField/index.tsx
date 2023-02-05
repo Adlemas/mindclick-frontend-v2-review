@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { Col, Form, InputNumber, Row } from "antd";
-import { RiCoinsLine, RiTrophyLine } from "react-icons/all";
+import { RiCoinsLine, RiTrophyLine } from "react-icons/ri";
 
 const { Item } = Form;
 
