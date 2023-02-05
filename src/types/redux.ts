@@ -21,6 +21,7 @@ export interface MembersState {
   loading: boolean;
   creating: boolean;
   updating: boolean;
+  member: IUser | null;
   query: string;
   groupId: string | null;
 }

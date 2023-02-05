@@ -21,6 +21,7 @@ export const LOAD_MEMBERS_SIZE = 15;
 const initialState: MembersState = {
   query: "",
   groupId: null,
+  member: null,
   records: [],
   loading: false,
   creating: false,
@@ -114,6 +115,9 @@ const membersSlice = createSlice({
     setGroupId: (state, action: PayloadAction<string | null>) => {
       state.groupId = action.payload;
     },
+    setMember: (state, action: PayloadAction<MembersState["member"]>) => {
+      state.member = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getMembersAction.pending, (state) => {
@@ -161,6 +165,7 @@ const membersSlice = createSlice({
   },
 });
 
-export const { resetMembers, setQuery, setGroupId } = membersSlice.actions;
+export const { resetMembers, setQuery, setGroupId, setMember } =
+  membersSlice.actions;
 
 export default membersSlice.reducer;
