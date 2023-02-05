@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Button from "@/components/UI/Button";
 import { getGroupsAction, setGroup } from "@/redux/slices/groups";
 import Panel from "@/components/UI/Panel";
-import AddGroupForm from "@/forms/AddGroupForm";
+import EditGroupForm from "@/forms/EditGroupForm";
 
 const GroupsTable: FC = () => {
   const { loading, records } = useAppSelector((state) => state.groups, isEqual);
@@ -97,7 +97,7 @@ const GroupsTable: FC = () => {
         width="25rem"
         onClose={handleUpdateGroupCancel}
       >
-        <AddGroupForm />
+        <EditGroupForm onCancel={handleUpdateGroupCancel} />
       </Panel>
     </>
   );
