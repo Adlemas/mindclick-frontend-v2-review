@@ -1,6 +1,10 @@
 
 
 .table {
+  :global(.ant-table) {
+    max-height: none !important;
+  }
+
   table {
     min-height: inherit;
   }
