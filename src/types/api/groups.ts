@@ -9,3 +9,11 @@ export interface CreateGroupPayload {
 }
 
 export interface CreateGroupResponse extends IGroup {}
+
+export interface UpdateGroupPayload {
+  name?: string;
+  color?: string;
+  groupId: string;
+}
+
+export interface UpdateGroupResponse extends IGroup {}
