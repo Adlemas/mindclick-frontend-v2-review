@@ -148,7 +148,7 @@ const MembersTable: FC = () => {
         width="25rem"
         onClose={handleUpdateMemberCancel}
       >
-        <EditMemberForm />
+        <EditMemberForm onCancel={handleUpdateMemberCancel} />
       </Panel>
     </>
   );
