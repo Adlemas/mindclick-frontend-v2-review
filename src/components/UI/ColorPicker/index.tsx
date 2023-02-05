@@ -30,6 +30,18 @@ const ColorPicker: FC<ColorPickerProps> = ({ color, onChange }) => {
           overlayClassName={styles.popover}
           content={
             <BlockPicker
+              colors={[
+                "#1e90ff",
+                "#dc8665",
+                "#138086",
+                "#534666",
+                "#cd7672",
+                "#eeb462",
+                "#5874dc",
+                "#e06c78",
+                "#660f56",
+                "#ffcc98",
+              ]}
               color={color}
               onChangeComplete={(newColor) => {
                 if (onChange) onChange(newColor.hex);
