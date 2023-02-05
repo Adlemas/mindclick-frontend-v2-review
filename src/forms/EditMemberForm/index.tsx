@@ -110,6 +110,23 @@ const EditMemberForm: FC<EditMemberFormProps> = ({ onCancel }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (member) {
+      form.setFieldsValue({
+        firstName: member.firstName,
+        lastName: member.lastName,
+        birthDate: moment(member.birthDate),
+        phone: {
+          mobile: member?.phone?.slice(2) ?? "",
+          code: member?.phone?.slice(0, 2) ?? "+7",
+        },
+        groupId: member.groupId,
+        rate: member.rate,
+        points: member.points,
+      });
+    }
+  }, [form, member]);
+
   return (
     <Form
       className={styles.form}
