@@ -28,6 +28,8 @@ export interface MembersState {
 
 export interface GroupsState {
   records: Array<IGroup>;
+  group: IGroup | null;
   loading: boolean;
   creating: boolean;
+  updating: boolean;
 }

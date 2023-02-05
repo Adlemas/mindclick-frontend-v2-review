@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { GroupsState } from "@/types/redux";
 import type { IGroup } from "@/types/entity";
@@ -8,13 +8,18 @@ import getGroups from "@/api/groups/getGroups";
 import type {
   CreateGroupPayload,
   CreateGroupResponse,
+  UpdateGroupPayload,
+  UpdateGroupResponse,
 } from "@/types/api/groups";
 import createGroup from "@/api/groups/createGroup";
+import updateGroup from "@/api/groups/updateGroup";
 
 const initialState: GroupsState = {
   records: [],
+  group: null,
   loading: false,
   creating: false,
+  updating: false,
 };
 
 export const getGroupsAction = createAsyncThunk<Array<IGroup>, void>(
@@ -50,11 +55,35 @@ export const createGroupAction = createAsyncThunk<
   }
 );
 
+export const updateGroupAction = createAsyncThunk<
+  UpdateGroupResponse,
+  UpdateGroupPayload
+>(
+  "groups/updateGroupAction",
+  async (payload, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await updateGroup(payload);
+
+      if (response) {
+        dispatch(getGroupsAction());
+      }
+
+      return response;
+    } catch (err) {
+      handleAxiosError(err);
+      return rejectWithValue(err);
+    }
+  }
+);
+
 const groupsSlice = createSlice({
   name: "groups",
   initialState,
   reducers: {
     resetGroupsState: () => initialState,
+    setGroup: (state, action: PayloadAction<GroupsState["group"]>) => {
+      state.group = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getGroupsAction.pending, (state) => {
@@ -77,9 +106,26 @@ const groupsSlice = createSlice({
         message.success("Группа успешно создана");
       }
     });
+    builder.addCase(createGroupAction.rejected, (state) => {
+      state.creating = false;
+    });
+
+    builder.addCase(updateGroupAction.pending, (state) => {
+      state.updating = true;
+    });
+    builder.addCase(updateGroupAction.fulfilled, (state, action) => {
+      state.updating = false;
+      // eslint-disable-next-line no-underscore-dangle
+      if (action.payload?._id) {
+        message.success("Группа успешно обновлена");
+      }
+    });
+    builder.addCase(updateGroupAction.rejected, (state) => {
+      state.updating = false;
+    });
   },
 });
 
-export const { resetGroupsState } = groupsSlice.actions;
+export const { resetGroupsState, setGroup } = groupsSlice.actions;
 
 export default groupsSlice.reducer;
