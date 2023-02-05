@@ -117,8 +117,8 @@ const EditMemberForm: FC<EditMemberFormProps> = ({ onCancel }) => {
         lastName: member.lastName,
         birthDate: moment(member.birthDate),
         phone: {
-          mobile: member?.phone?.slice(2) ?? "",
-          code: member?.phone?.slice(0, 2) ?? "+7",
+          mobile: "",
+          code: "+7",
         },
         groupId: member.groupId,
         rate: member.rate,
