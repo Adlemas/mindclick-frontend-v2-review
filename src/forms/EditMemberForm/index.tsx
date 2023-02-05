@@ -1,8 +1,9 @@
 import type { FC } from "react";
-import { Col, Form, Row, DatePicker, message } from "antd";
+import { Col, Form, Row, DatePicker, message, Tooltip } from "antd";
 import { useEffect, useMemo } from "react";
 import { isEqual, uniqBy } from "lodash";
 import moment, { Moment } from "moment";
+import { parsePhoneNumber } from "libphonenumber-js";
 import StyledInput from "@/components/UI/StyledInput";
 import Button from "@/components/UI/Button";
 import Select from "@/components/UI/Select";
@@ -23,6 +24,7 @@ export interface EditMemberFormProps {
 interface FormValues {
   firstName: string;
   lastName: string;
+  email: string;
   phone: {
     mobile: string;
     code: string;
@@ -112,14 +114,21 @@ const EditMemberForm: FC<EditMemberFormProps> = ({ onCancel }) => {
 
   useEffect(() => {
     if (member) {
+      const phoneNumber = parsePhoneNumber(member.phone || "");
+      if (phoneNumber && phoneNumber.isValid()) {
+        form.setFieldsValue({
+          phone: {
+            mobile: phoneNumber.nationalNumber,
+            code: `+${phoneNumber.countryCallingCode}`,
+          },
+        });
+      }
+
       form.setFieldsValue({
         firstName: member.firstName,
         lastName: member.lastName,
+        email: member.email,
         birthDate: moment(member.birthDate),
-        phone: {
-          mobile: "",
-          code: "+7",
-        },
         groupId: member.groupId,
         rate: member.rate,
         points: member.points,
@@ -170,6 +179,24 @@ const EditMemberForm: FC<EditMemberFormProps> = ({ onCancel }) => {
         required
       >
         <StyledInput placeholder="Введите фамилия..." />
+      </Item>
+      <Item
+        label="Email"
+        name="email"
+        tooltip="Данное поле изменить нельзя"
+        rules={[
+          {
+            required: true,
+            message: "Пожалуйста, введите email!",
+          },
+          {
+            type: "email",
+            message: "Пожалуйста, введите корректный email!",
+          },
+        ]}
+        required
+      >
+        <StyledInput placeholder="Введите email..." disabled />
       </Item>
       <Item
         label="Номер телефона"
@@ -266,7 +293,7 @@ const EditMemberForm: FC<EditMemberFormProps> = ({ onCancel }) => {
         <Row gutter={12}>
           <Col>
             <Button htmlType="submit" loading={updating}>
-              Создать
+              Сохранить
             </Button>
           </Col>
           <Col>
