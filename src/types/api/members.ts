@@ -27,3 +27,18 @@ export interface CreateMemberPayload {
 }
 
 export interface CreateMemberResponse extends Omit<IUser, "password"> {}
+
+export interface UpdateMemberPayload {
+  // url params
+  id: string;
+  // body
+  firstName?: string;
+  lastName: string;
+  phone?: string;
+  birthDate?: string;
+  groupId?: string;
+  rate?: number;
+  points?: number;
+}
+
+export interface UpdateMemberResponse extends Omit<IUser, "password"> {}
