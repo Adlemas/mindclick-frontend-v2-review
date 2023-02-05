@@ -20,6 +20,7 @@ export interface MembersState {
   page: number;
   loading: boolean;
   creating: boolean;
+  updating: boolean;
   query: string;
   groupId: string | null;
 }

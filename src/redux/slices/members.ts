@@ -7,11 +7,14 @@ import type {
   CreateMemberResponse,
   GetMembersPayload,
   GetMembersResponse,
+  UpdateMemberPayload,
+  UpdateMemberResponse,
 } from "@/types/api/members";
 import getMembers from "@/api/members/getMembers";
 import handleAxiosError from "@/utils/handleAxiosError";
 import type { RootState } from "@/redux/store";
 import createMember from "@/api/members/createMember";
+import updateMember from "@/api/members/updateMember";
 
 export const LOAD_MEMBERS_SIZE = 15;
 
@@ -21,6 +24,7 @@ const initialState: MembersState = {
   records: [],
   loading: false,
   creating: false,
+  updating: false,
   page: 1,
   totalCount: 0,
   totalPages: 0,
@@ -72,6 +76,33 @@ export const createMemberAction = createAsyncThunk<
   }
 });
 
+export const updateMemberAction = createAsyncThunk<
+  UpdateMemberResponse,
+  UpdateMemberPayload,
+  {
+    state: RootState;
+  }
+>("members/updateMember", async (payload, { rejectWithValue, dispatch }) => {
+  try {
+    const response = await updateMember(payload);
+
+    if (response) {
+      dispatch(
+        getMembersAction({
+          query: "",
+          page: 1,
+          size: LOAD_MEMBERS_SIZE,
+        })
+      );
+    }
+
+    return response;
+  } catch (err) {
+    handleAxiosError(err);
+    return rejectWithValue(err);
+  }
+});
+
 const membersSlice = createSlice({
   name: "members",
   initialState,
@@ -111,6 +142,21 @@ const membersSlice = createSlice({
     });
     builder.addCase(createMemberAction.rejected, (state) => {
       state.creating = false;
+    });
+
+    builder.addCase(updateMemberAction.pending, (state) => {
+      state.updating = true;
+    });
+    builder.addCase(updateMemberAction.fulfilled, (state, action) => {
+      state.updating = false;
+
+      // eslint-disable-next-line no-underscore-dangle
+      if (action.payload?._id) {
+        message.success("Ученик успешно обновлен");
+      }
+    });
+    builder.addCase(updateMemberAction.rejected, (state) => {
+      state.updating = false;
     });
   },
 });
