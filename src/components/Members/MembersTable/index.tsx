@@ -17,7 +17,7 @@ import {
 } from "@/redux/slices/members";
 import Button from "@/components/UI/Button";
 import Panel from "@/components/UI/Panel";
-import AddMemberForm from "@/forms/AddMemberForm";
+import EditMemberForm from "@/forms/EditMemberForm";
 
 const MembersTable: FC = () => {
   const [updateMemberPanel, setUpdateMemberPanel] = useState<boolean>();
@@ -47,13 +47,14 @@ const MembersTable: FC = () => {
 
   const handleUpdateMember = useCallback(
     (member: IUser) => {
-      setUpdateMemberPanel(true);
       dispatch(setMember(member));
+      setUpdateMemberPanel(true);
     },
     [dispatch]
   );
 
   const handleUpdateMemberCancel = () => {
+    dispatch(setMember(null));
     setUpdateMemberPanel(false);
   };
 
@@ -147,7 +148,7 @@ const MembersTable: FC = () => {
         width="25rem"
         onClose={handleUpdateMemberCancel}
       >
-        <AddMemberForm />
+        <EditMemberForm />
       </Panel>
     </>
   );
